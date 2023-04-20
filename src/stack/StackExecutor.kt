@@ -25,5 +25,11 @@ object StackExecutor : StackProblems by StackSolutions() {
 
         print("stockSpan : ")
         stockSpan()
+
+        print("minStack using other stack : ")
+        MinStackUsingOtherStack()()
+
+        print("minStack using other variable : ")
+        MinStackUsingOtherVariable()()
     }
 }
