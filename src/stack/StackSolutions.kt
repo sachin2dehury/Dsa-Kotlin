@@ -1,10 +1,13 @@
+package stack
+
 import java.util.Stack
 import kotlin.math.max
+import kotlin.math.min
 
-object StackProblems {
+class StackSolutions : StackProblems {
 
     // [4,5,2,25] -> [5,25,25,-1]
-    fun nearestGreaterToRight(items: List<Int> = listOf(4, 5, 2, 25)) {
+    override fun nearestGreaterToRight(items: List<Int>) {
         val stack = Stack<Int>()
         val result = items.toMutableList()
         for (i in items.lastIndex downTo 0) {
@@ -28,7 +31,7 @@ object StackProblems {
     }
 
     // [4,5,2,25] -> [-1,-1,5,-1]
-    fun nearestGreaterToLeft(items: List<Int> = listOf(4, 5, 2, 25)) {
+    override fun nearestGreaterToLeft(items: List<Int>) {
         val stack = Stack<Int>()
         val result = items.toMutableList()
         items.forEachIndexed { index, item ->
@@ -52,7 +55,7 @@ object StackProblems {
     }
 
     // [4,5,2,25] -> [2,2,-1,-1]
-    fun nearestSmallerToRight(items: List<Int> = listOf(4, 5, 2, 25)) {
+    override fun nearestSmallerToRight(items: List<Int>) {
         val stack = Stack<Int>()
         val result = items.toMutableList()
         for (i in items.lastIndex downTo 0) {
@@ -76,7 +79,7 @@ object StackProblems {
     }
 
     // [4,5,2,25] -> [-1,-1,-1,2]
-    fun nearestSmallerToLeft(items: List<Int> = listOf(4, 5, 2, 25)) {
+    override fun nearestSmallerToLeft(items: List<Int>) {
         val stack = Stack<Int>()
         val result = items.toMutableList()
         items.forEachIndexed { index, item ->
@@ -100,15 +103,73 @@ object StackProblems {
     }
 
     // [3, 0, 2, 0, 4]
-    fun rainWaterTrapping(items: List<Int> = listOf(3, 0, 2, 0, 4)) {
+    // [4, 4, 4, 4, 4]
+    // [3, 3, 3, 3, 4]
+    override fun rainWaterTrapping(items: List<Int>) {
+        val stackForRight = Stack<Int>()
+        val nearestGreaterToRight = items.toMutableList()
+        for (i in items.lastIndex downTo 0) {
+            if (stackForRight.isEmpty()) {
+                nearestGreaterToRight[i] = items[i]
+            } else if (stackForRight.peek() >= items[i]) {
+                nearestGreaterToRight[i] = stackForRight.peek()
+            } else {
+                while (stackForRight.isNotEmpty() && stackForRight.peek() < items[i]) {
+                    stackForRight.pop()
+                }
+                if (stackForRight.isEmpty()) {
+                    nearestGreaterToRight[i] = items[i]
+                } else {
+                    nearestGreaterToRight[i] = stackForRight.peek()
+                }
+            }
+            stackForRight.push(items[i])
+            if (i < items.lastIndex) {
+                nearestGreaterToRight[i] = max(nearestGreaterToRight[i], nearestGreaterToRight[i + 1])
+            }
+        }
 
+
+        val stackForLeft = Stack<Int>()
+        val nearestGreaterToLeft = items.toMutableList()
+        items.forEachIndexed { index, item ->
+            if (stackForLeft.isEmpty()) {
+                nearestGreaterToLeft[index] = item
+            } else if (stackForLeft.peek() >= item) {
+                nearestGreaterToLeft[index] = stackForLeft.peek()
+            } else {
+                while (stackForLeft.isNotEmpty() && stackForLeft.peek() < item) {
+                    stackForLeft.pop()
+                }
+                if (stackForLeft.isEmpty()) {
+                    nearestGreaterToLeft[index] = item
+                } else {
+                    nearestGreaterToLeft[index] = stackForLeft.peek()
+                }
+            }
+            stackForLeft.push(item)
+            if (index > 0) {
+                nearestGreaterToLeft[index] = max(nearestGreaterToLeft[index], nearestGreaterToLeft[index - 1])
+            }
+        }
+
+        val waterHeight = items.toMutableList()
+        for (i in 0..waterHeight.lastIndex) {
+            waterHeight[i] = min(nearestGreaterToRight[i], nearestGreaterToLeft[i])
+        }
+        var result = 0
+        for (i in 0..items.lastIndex) {
+            result += (waterHeight[i] - items[i])
+        }
+
+        println(result)
     }
 
     // [6, 2, 5, 4, 5, 1, 6]
     // [2, 1, 4, 1, 1, -1, -1]
     // [-1, -1, 2, 2, 4, -1, 1]
     // -> 12
-    fun maximumAreaHistogram(items: List<Int> = listOf(6, 2, 5, 4, 5, 1, 6)) {
+    override fun maximumAreaHistogram(items: List<Int>) {
         val stackForRightIndex = Stack<Int>()
         val nearestSmallerToRightIndex = items.toMutableList()
         for (i in items.lastIndex downTo 0) {
@@ -160,12 +221,35 @@ object StackProblems {
         println(result)
     }
 
+    // [100, 80, 60, 70, 60, 75, 85]
+    override fun stockSpan(items: List<Int>) {
+        val stack = Stack<Int>()
+        val nearestGreaterToLeftIndex = items.toMutableList()
+        items.forEachIndexed { index, item ->
+            if (stack.isEmpty()) {
+                nearestGreaterToLeftIndex[index] = index
+            } else if (items[stack.peek()] >= item) {
+                nearestGreaterToLeftIndex[index] = stack.peek()
+            } else {
+                while (stack.isNotEmpty() && items[stack.peek()] < item) {
+                    stack.pop()
+                }
+                if (stack.isEmpty()) {
+                    nearestGreaterToLeftIndex[index] = index
+                } else {
+                    nearestGreaterToLeftIndex[index] = stack.peek()
+                }
+            }
+            stack.push(index)
+        }
+
+        val result = items.toMutableList()
+        for (i in 0..items.lastIndex) {
+            result[i] = i - nearestGreaterToLeftIndex[i]
+        }
+
+        println(result)
+    }
+
 }
 
-fun main() {
-    StackProblems.nearestGreaterToRight()
-    StackProblems.nearestGreaterToLeft()
-    StackProblems.nearestSmallerToRight(listOf(6, 2, 5, 4, 5, 1, 6))
-    StackProblems.nearestSmallerToLeft(listOf(6, 2, 5, 4, 5, 1, 6))
-    StackProblems.maximumAreaHistogram()
-}
