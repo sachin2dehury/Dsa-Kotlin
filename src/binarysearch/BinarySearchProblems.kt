@@ -1,0 +1,4 @@
+package binarysearch
+
+interface BinarySearchProblems {
+}

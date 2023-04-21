@@ -1,6 +1,7 @@
-import heap.HeapExecutor
+import binarysearch.BinarySearchExecutor
 
 fun main() {
 //    StackExecutor()
-    HeapExecutor()
+//    HeapExecutor()
+    BinarySearchExecutor()
 }
