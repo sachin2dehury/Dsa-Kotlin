@@ -3,7 +3,7 @@ package stack
 object StackExecutor : StackProblems by StackSolutions() {
 
     operator fun invoke() {
-        println()
+        println("\nStack :\n")
 
         print("nearestGreaterToRight : ")
         nearestGreaterToRight()
