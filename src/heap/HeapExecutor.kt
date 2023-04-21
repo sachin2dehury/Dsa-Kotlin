@@ -16,5 +16,20 @@ object HeapExecutor : HeapProblems by HeapSolutions() {
 
         print("frequencySortDescending : ")
         frequencySortDescending()
+
+        print("sortKSortedList : ")
+        sortKSortedList()
+
+        print("kClosestElement : ")
+        kClosestElement()
+
+        print("kClosestToOrigin : ")
+        kClosestToOrigin()
+
+        print("minimizeConnectingRopes : ")
+        minimizeConnectingRopes()
+
+        print("sumOfElementsBetweenSmallestK1andK2 : ")
+        sumOfElementsBetweenSmallestK1andK2()
     }
 }
