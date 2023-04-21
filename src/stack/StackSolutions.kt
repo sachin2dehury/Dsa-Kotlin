@@ -3,11 +3,12 @@ package stack
 import java.util.Stack
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.pow
 
 class StackSolutions : StackProblems {
 
     // [4,5,2,25] -> [5,25,25,-1]
-    override fun nearestGreaterToRight(items: List<Int>) {
+    override fun nearestGreaterToRight(items: List<Int>): List<Int> {
         val stack = Stack<Int>()
         val result = items.toMutableList()
         for (i in items.lastIndex downTo 0) {
@@ -28,10 +29,11 @@ class StackSolutions : StackProblems {
             stack.push(items[i])
         }
         println(result)
+        return result
     }
 
     // [4,5,2,25] -> [-1,-1,5,-1]
-    override fun nearestGreaterToLeft(items: List<Int>) {
+    override fun nearestGreaterToLeft(items: List<Int>): List<Int> {
         val stack = Stack<Int>()
         val result = items.toMutableList()
         items.forEachIndexed { index, item ->
@@ -52,10 +54,11 @@ class StackSolutions : StackProblems {
             stack.push(item)
         }
         println(result)
+        return result
     }
 
     // [4,5,2,25] -> [2,2,-1,-1]
-    override fun nearestSmallerToRight(items: List<Int>) {
+    override fun nearestSmallerToRight(items: List<Int>): List<Int> {
         val stack = Stack<Int>()
         val result = items.toMutableList()
         for (i in items.lastIndex downTo 0) {
@@ -76,10 +79,11 @@ class StackSolutions : StackProblems {
             stack.push(items[i])
         }
         println(result)
+        return result
     }
 
     // [4,5,2,25] -> [-1,-1,-1,2]
-    override fun nearestSmallerToLeft(items: List<Int>) {
+    override fun nearestSmallerToLeft(items: List<Int>): List<Int> {
         val stack = Stack<Int>()
         val result = items.toMutableList()
         items.forEachIndexed { index, item ->
@@ -100,12 +104,13 @@ class StackSolutions : StackProblems {
             stack.push(item)
         }
         println(result)
+        return result
     }
 
     // [3, 0, 2, 0, 4]
     // [4, 4, 4, 4, 4]
     // [3, 3, 3, 3, 4]
-    override fun rainWaterTrapping(items: List<Int>) {
+    override fun rainWaterTrapping(items: List<Int>): Int {
         val stackForRight = Stack<Int>()
         val nearestGreaterToRight = items.toMutableList()
         for (i in items.lastIndex downTo 0) {
@@ -163,13 +168,14 @@ class StackSolutions : StackProblems {
         }
 
         println(result)
+        return result
     }
 
     // [6, 2, 5, 4, 5, 1, 6]
     // [2, 1, 4, 1, 1, -1, -1]
     // [-1, -1, 2, 2, 4, -1, 1]
     // -> 12
-    override fun maximumAreaHistogram(items: List<Int>) {
+    override fun maximumAreaHistogram(items: List<Int>): Int {
         val stackForRightIndex = Stack<Int>()
         val nearestSmallerToRightIndex = items.toMutableList()
         for (i in items.lastIndex downTo 0) {
@@ -219,10 +225,11 @@ class StackSolutions : StackProblems {
         }
 
         println(result)
+        return result
     }
 
     // [100, 80, 60, 70, 60, 75, 85]
-    override fun stockSpan(items: List<Int>) {
+    override fun stockSpan(items: List<Int>): List<Int> {
         val stack = Stack<Int>()
         val nearestGreaterToLeftIndex = items.toMutableList()
         items.forEachIndexed { index, item ->
@@ -249,7 +256,66 @@ class StackSolutions : StackProblems {
         }
 
         println(result)
+        return result
     }
 
+    override fun binaryMatrixMaximumAreaHistogram(items: List<List<Int>>): Int {
+        return 0
+    }
+
+    // 53+62/*35*+ -> 39
+    override fun postfixEvaluation(expression: String): Int? {
+        val stack = Stack<Int>()
+        expression.forEach {
+            if (it.isDigit()) {
+                stack.push(it.digitToInt())
+            } else {
+                val b = stack.pop()
+                val a = stack.pop()
+                val c = if (it == '+') {
+                    a + b
+                } else if (it == '-') {
+                    a - b
+                } else if (it == '*') {
+                    a * b
+                } else if (it == '/') {
+                    a / b
+                } else if (it == '^') {
+                    a.toDouble().pow(b).toInt()
+                } else {
+                    throw Exception("Unknown Operator")
+                }
+                stack.push(c)
+            }
+        }
+        val result = stack.peek()
+        println(result)
+        return result
+    }
+
+    // [()]{}{[()()]()}
+    override fun balancedParenthesis(expression: String): Boolean {
+        val stack = Stack<Char>()
+        expression.forEach {
+            if (it == '{' || it == '[' || it == '(') {
+                stack.push(it)
+            } else if (stack.isNotEmpty()) {
+                if (it == '}' && stack.peek() == '{') {
+                    stack.pop()
+                } else if (it == ']' && stack.peek() == '[') {
+                    stack.pop()
+                } else if (it == ')' && stack.peek() == '(') {
+                    stack.pop()
+                } else {
+                    stack.push(it)
+                }
+            } else {
+                stack.push(it)
+            }
+        }
+        val result = stack.isEmpty()
+        println(result)
+        return result
+    }
 }
 

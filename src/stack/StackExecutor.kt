@@ -31,5 +31,14 @@ object StackExecutor : StackProblems by StackSolutions() {
 
         print("minStack using other variable : ")
         MinStackUsingOtherVariable()()
+
+        print("postfixEvaluation : ")
+        postfixEvaluation()
+
+        print("balancedParenthesis : ")
+        balancedParenthesis()
+
+        print("binaryMatrixMaximumAreaHistogram : ")
+        binaryMatrixMaximumAreaHistogram()
     }
 }
