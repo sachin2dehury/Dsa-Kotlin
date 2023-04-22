@@ -14,7 +14,6 @@ interface StackProblems {
     // [4,5,2,25] -> [-1,-1,-1,2]
     fun nearestSmallerToLeft(items: List<Int> = listOf(4, 5, 2, 25)): List<Int>
 
-
     // [3, 0, 2, 0, 4]
     // [4, 4, 4, 4, 4]
     // [3, 3, 3, 3, 4]
@@ -34,8 +33,8 @@ interface StackProblems {
             listOf(0, 1, 1, 0),
             listOf(1, 1, 1, 1),
             listOf(1, 1, 1, 1),
-            listOf(1, 1, 0, 0)
-        )
+            listOf(1, 1, 0, 0),
+            ),
     ): Int
 
     // 53+62/*35*+ -> 39

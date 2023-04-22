@@ -130,10 +130,10 @@ class StackSolutions : StackProblems {
             }
             stackForRight.push(items[i])
             if (i < items.lastIndex) {
-                nearestGreaterToRight[i] = max(nearestGreaterToRight[i], nearestGreaterToRight[i + 1])
+                nearestGreaterToRight[i] =
+                    max(nearestGreaterToRight[i], nearestGreaterToRight[i + 1])
             }
         }
-
 
         val stackForLeft = Stack<Int>()
         val nearestGreaterToLeft = items.toMutableList()
@@ -154,7 +154,8 @@ class StackSolutions : StackProblems {
             }
             stackForLeft.push(item)
             if (index > 0) {
-                nearestGreaterToLeft[index] = max(nearestGreaterToLeft[index], nearestGreaterToLeft[index - 1])
+                nearestGreaterToLeft[index] =
+                    max(nearestGreaterToLeft[index], nearestGreaterToLeft[index - 1])
             }
         }
 
@@ -318,4 +319,3 @@ class StackSolutions : StackProblems {
         return result
     }
 }
-
