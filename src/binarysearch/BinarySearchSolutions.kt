@@ -158,15 +158,97 @@ class BinarySearchSolutions : BinarySearchProblems {
     }
 
     override fun minimumDifferenceElement(items: List<Int>, item: Int): Int {
-        TODO("Not yet implemented")
+        var start = 0
+        var end = items.lastIndex
+        var floor = -1
+        while (end >= start) {
+            val mid = end - (end - start) / 2
+            if (items[mid] == item) {
+                floor = item
+                break
+            } else if (items[mid] < item) {
+                start = mid + 1
+                floor = items[mid]
+            } else {
+                end = mid - 1
+            }
+        }
+
+        var ceil = -1
+        start = 0
+        end = items.lastIndex
+        while (end >= start) {
+            val mid = end - (end - start) / 2
+            if (items[mid] == item) {
+                ceil = item
+                break
+            } else if (items[mid] < item) {
+                start = mid + 1
+            } else {
+                end = mid - 1
+                ceil = items[mid]
+            }
+        }
+
+        val result = if (ceil - item < item - floor) {
+            ceil
+        } else {
+            floor
+        }
+
+        println(result)
+        return result
     }
 
     override fun nextAlphabetInList(items: List<Char>, item: Char): Char {
-        TODO("Not yet implemented")
+        var start = 0
+        var end = items.lastIndex
+        var result = '#'
+        while (end >= start) {
+            val mid = end - (end - start) / 2
+            if (items[mid] == item) {
+                if (mid != end) {
+                    result = items[mid + 1]
+                }
+                break
+            } else if (items[mid] < item) {
+                start = mid + 1
+            } else {
+                end = mid - 1
+                result = items[mid]
+            }
+        }
+
+        println(result)
+        return result
     }
 
     override fun numberOfRotation(items: List<Int>): Int {
-        TODO("Not yet implemented")
+        var start = 0
+        var end = items.lastIndex
+
+        var result = -1
+
+        if (items.first() < items.last()) {
+            result = 0
+        }
+
+        while (result == -1) {
+            val mid = end - (end - start) / 2
+            val prevItem = (items.size + mid - 1) % items.size
+            val nextItem = (mid + 1) % items.size
+            if (items[mid] < items[prevItem] && items[mid] < items[nextItem]) {
+                result = mid
+                break
+            } else if (items[mid] < items[start]) {
+                end = mid - 1
+            } else {
+                start = mid + 1
+            }
+        }
+
+        println(result)
+        return result
     }
 
     override fun binarySearchInRotatedList(items: List<Int>, item: Int): Int {
