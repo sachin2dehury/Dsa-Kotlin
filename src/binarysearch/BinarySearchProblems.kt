@@ -9,7 +9,10 @@ interface BinarySearchProblems {
         item: Int = 110,
     ): Int
 
-    fun reverseBinarySearch(items: List<Int>, item: Int): Int
+    fun reverseBinarySearch(
+        items: List<Int> = listOf(10, 20, 30, 50, 60, 80, 110, 130, 140, 170).asReversed(),
+        item: Int = 110
+    ): Int
 
     // [1, 3, 5, 5, 5, 5, 67, 123, 125]
     // 5 -> 2
@@ -38,7 +41,7 @@ interface BinarySearchProblems {
 
     // [1, 2, 8, 10, 10, 12, 19]
     // 5 -> 8
-    fun cielOfAnElement(items: List<Int> = listOf(1, 2, 8, 10, 10, 12, 19), item: Int = 5): Int
+    fun ceilOfAnElement(items: List<Int> = listOf(1, 2, 8, 10, 10, 12, 19), item: Int = 5): Int
 
     // [2, 5, 10, 12, 15]
     // 5 -> 5
