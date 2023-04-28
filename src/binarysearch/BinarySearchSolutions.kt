@@ -235,9 +235,9 @@ class BinarySearchSolutions : BinarySearchProblems {
 
         while (result == -1) {
             val mid = end - (end - start) / 2
-            val prevItem = (items.size + mid - 1) % items.size
-            val nextItem = (mid + 1) % items.size
-            if (items[mid] < items[prevItem] && items[mid] < items[nextItem]) {
+            val prevIndex = (items.size + mid - 1) % items.size
+            val nextIndex = (mid + 1) % items.size
+            if (items[mid] < items[prevIndex] && items[mid] < items[nextIndex]) {
                 result = mid
                 break
             } else if (items[mid] < items[start]) {
@@ -252,38 +252,257 @@ class BinarySearchSolutions : BinarySearchProblems {
     }
 
     override fun binarySearchInRotatedList(items: List<Int>, item: Int): Int {
-        TODO("Not yet implemented")
+        var start = 0
+        var end = items.lastIndex
+
+        var rotation = -1
+        if (items.first() < items.last()) {
+            rotation = 0
+        }
+
+        while (rotation == -1) {
+            val mid = end - (end - start) / 2
+            val prevIndex = (items.size + mid - 1) % items.size
+            val nextIndex = (mid + 1) % items.size
+            if (items[mid] < items[prevIndex] && items[mid] < items[nextIndex]) {
+                rotation = mid
+            } else if (items[mid] < items[start]) {
+                end = mid - 1
+            } else {
+                start = mid + 1
+            }
+        }
+
+        var result = -1
+
+        if (items.last() < item) {
+            start = 0
+            end = rotation - 1
+        } else {
+            start = rotation
+            end = items.lastIndex
+        }
+
+        while (end >= start) {
+            val mid = end - (end - start) / 2
+            if (items[mid] == item) {
+                result = mid
+                break
+            } else if (items[mid] < item) {
+                start = mid + 1
+            } else {
+                end = mid - 1
+            }
+        }
+
+        println(result)
+        return result
     }
 
     override fun peakElement(items: List<Int>): Int {
-        TODO("Not yet implemented")
+        var start = 0
+        var end = 0
+        var result = -1
+
+        while (end >= start) {
+            val mid = end - (end - start) / 2
+            val prevIndex = (items.size + mid - 1) % items.size
+            val nextIndex = (mid + 1) % items.size
+            if (items[mid] > items[prevIndex] && items[mid] > items[nextIndex]) {
+                result = items[mid]
+                break
+            } else if (items[mid] > items[prevIndex] && items[mid] < items[nextIndex]) {
+                start = nextIndex
+            } else {
+                end = prevIndex
+            }
+        }
+
+        println(result)
+        return result
     }
 
     override fun firstOccurrenceOfOne(items: List<Int>): Int {
-        TODO("Not yet implemented")
+        var start = 0
+        var end = 1
+        while (end <= items.lastIndex && items[end] < 1) {
+            start = end
+            end *= 2
+        }
+
+        var result = -1
+        while (end >= start) {
+            val mid = end - (end - start) / 2
+            if (items[mid] == 1) {
+                result = mid
+                end = mid - 1
+            } else if (items[mid] < 1) {
+                start = mid + 1
+            } else {
+                end = mid - 1
+            }
+        }
+
+        println(result)
+        return result
     }
 
     override fun maximumElementInBitonicList(items: List<Int>): Int {
-        TODO("Not yet implemented")
+        var start = 0
+        var end = items.lastIndex
+
+        var result = -1
+        while (end >= start) {
+            val mid = end - (end - start) / 2
+            val prevIndex = (items.size + mid - 1) % items.size
+            val nextIndex = (mid + 1) % items.size
+            if (items[mid] > items[prevIndex] && items[mid] > items[nextIndex]) {
+                result = items[mid]
+                break
+            } else if (items[mid] < items[start]) {
+                end = mid - 1
+            } else {
+                start = mid + 1
+            }
+        }
+
+        println(result)
+        return result
     }
 
     override fun binarySearchInBitonicList(items: List<Int>, item: Int): Int {
-        TODO("Not yet implemented")
+        var start = 0
+        var end = items.lastIndex
+
+        var peakIndex = -1
+        while (end >= start) {
+            val mid = end - (end - start) / 2
+            val prevIndex = (items.size + mid - 1) % items.size
+            val nextIndex = (mid + 1) % items.size
+            if (items[mid] > items[prevIndex] && items[mid] > items[nextIndex]) {
+                peakIndex = mid
+                break
+            } else if (items[mid] < items[start]) {
+                end = mid - 1
+            } else {
+                start = mid + 1
+            }
+        }
+
+        start = 0
+        end = peakIndex
+        var result = -1
+
+        while (end >= start) {
+            val mid = end - (end - start) / 2
+            if (items[mid] == item) {
+                result = mid
+                break
+            } else if (items[mid] < item) {
+                start = mid + 1
+            } else {
+                end = mid - 1
+            }
+        }
+
+        start = peakIndex + 1
+        end = items.lastIndex
+
+        while (end >= start && result == -1) {
+            val mid = end - (end - start) / 2
+            if (items[mid] == item) {
+                result = mid
+                break
+            } else if (items[mid] < item) {
+                end = mid - 1
+            } else {
+                start = mid + 1
+            }
+        }
+
+        println(result)
+        return result
     }
 
     override fun binarySearchInInfiniteList(items: List<Int>, item: Int): Int {
-        TODO("Not yet implemented")
+        var start = 0
+        var end = 1
+        while (end <= items.lastIndex && items[end] < item) {
+            start = end
+            end *= 2
+        }
+
+        var result = -1
+        while (end >= start) {
+            val mid = end - (end - start) / 2
+            if (items[mid] == item) {
+                result = mid
+                break
+            } else if (items[mid] < item) {
+                start = mid + 1
+            } else {
+                end = mid - 1
+            }
+        }
+
+        println(result)
+        return result
     }
 
     override fun binarySearchInNearlySortedList(items: List<Int>, item: Int): Int {
-        TODO("Not yet implemented")
+        var start = 0
+        var end = items.lastIndex
+        var result = -1
+
+        while (end >= start) {
+            val mid = end - (end - start) / 2
+            val prevIndex = (items.size + mid - 1) % items.size
+            val nextIndex = (mid + 1) % items.size
+            if (items[mid] == item) {
+                result = mid
+                break
+            } else if (items[prevIndex] == item) {
+                result = prevIndex
+                break
+            } else if (items[nextIndex] == item) {
+                result = nextIndex
+                break
+            } else if (items[mid] < item) {
+                start = mid + 1
+            } else {
+                end = mid - 1
+            }
+        }
+
+        println(result)
+        return result
     }
 
     override fun binarySearchInUnknownOrder(items: List<Int>, item: Int): Int {
-        TODO("Not yet implemented")
+        return if (items.first() < items.last()) {
+            binarySearch(items, item)
+        } else {
+            reverseBinarySearch(items, item)
+        }
     }
 
     override fun binarySearchInMatrix(items: List<List<Int>>, item: Int): Pair<Int, Int> {
-        TODO("Not yet implemented")
+        var i = 0
+        var j = items.first().lastIndex
+
+        var result = -1 to -1
+        while (i <= items.lastIndex && j >= 0) {
+            if (items[i][j] == item) {
+                result = i to j
+                break
+            } else if (items[i][j] < item) {
+                i++
+            } else {
+                j--
+            }
+        }
+
+        println(result)
+        return result
     }
 }

@@ -82,7 +82,7 @@ interface BinarySearchProblems {
     ): Int
 
     fun binarySearchInUnknownOrder(
-        items: List<Int> = listOf(10, 20, 30, 50, 60, 80, 110, 130, 140, 170),
+        items: List<Int> = listOf(10, 20, 30, 50, 60, 80, 110, 130, 140, 170).reversed(),
         item: Int = 110,
     ): Int
 
