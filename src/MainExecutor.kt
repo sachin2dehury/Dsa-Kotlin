@@ -1,11 +1,11 @@
-import binarysearch.BinarySearchExecutor
-import heap.HeapExecutor
-import slidingwindow.SlidingWindowExecutor
-import stack.StackExecutor
+import duplicates.DuplicateExecutor
+import recursion.RecursionExecutor
 
 fun main() {
-    StackExecutor()
-    HeapExecutor()
-    BinarySearchExecutor()
-    SlidingWindowExecutor()
+//    StackExecutor()
+//    HeapExecutor()
+//    BinarySearchExecutor()
+//    SlidingWindowExecutor()
+    RecursionExecutor()
+    DuplicateExecutor()
 }
