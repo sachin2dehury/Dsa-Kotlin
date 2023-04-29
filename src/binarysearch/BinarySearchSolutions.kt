@@ -1,7 +1,7 @@
 package binarysearch
 
 class BinarySearchSolutions : BinarySearchProblems {
-    override fun binarySearch(items: List<Int>, item: Int): Int {
+    override fun binarySearch(items: List<Int>, item: Int) {
         var start = 0
         var end = items.lastIndex
         var result = -1
@@ -17,10 +17,9 @@ class BinarySearchSolutions : BinarySearchProblems {
             }
         }
         println(result)
-        return result
     }
 
-    override fun reverseBinarySearch(items: List<Int>, item: Int): Int {
+    override fun reverseBinarySearch(items: List<Int>, item: Int) {
         var start = 0
         var end = items.lastIndex
         var result = -1
@@ -36,10 +35,9 @@ class BinarySearchSolutions : BinarySearchProblems {
             }
         }
         println(result)
-        return result
     }
 
-    override fun firstOccurrenceOfElement(items: List<Int>, item: Int): Int {
+    override fun firstOccurrenceOfElement(items: List<Int>, item: Int) {
         var start = 0
         var end = items.lastIndex
         var result = -1
@@ -56,10 +54,9 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun lastOccurrenceOfElement(items: List<Int>, item: Int): Int {
+    override fun lastOccurrenceOfElement(items: List<Int>, item: Int) {
         var start = 0;
         var end = items.lastIndex
         var result = -1
@@ -76,10 +73,9 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun countOfAnElement(items: List<Int>, item: Int): Int {
+    override fun countOfAnElement(items: List<Int>, item: Int) {
         var start = 0
         var end = items.lastIndex
         var firstOccurrence = -1
@@ -112,10 +108,9 @@ class BinarySearchSolutions : BinarySearchProblems {
 
         val result = lastOccurrence - firstOccurrence + 1
         println(result)
-        return result
     }
 
-    override fun floorOfAnElement(items: List<Int>, item: Int): Int {
+    override fun floorOfAnElement(items: List<Int>, item: Int) {
         var start = 0
         var end = items.lastIndex
         var result = -1
@@ -133,10 +128,9 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun ceilOfAnElement(items: List<Int>, item: Int): Int {
+    override fun ceilOfAnElement(items: List<Int>, item: Int) {
         var start = 0
         var end = items.lastIndex
         var result = -1
@@ -154,10 +148,9 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun minimumDifferenceElement(items: List<Int>, item: Int): Int {
+    override fun minimumDifferenceElement(items: List<Int>, item: Int) {
         var start = 0
         var end = items.lastIndex
         var floor = -1
@@ -197,10 +190,9 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun nextAlphabetInList(items: List<Char>, item: Char): Char {
+    override fun nextAlphabetInList(items: List<Char>, item: Char) {
         var start = 0
         var end = items.lastIndex
         var result = '#'
@@ -220,10 +212,9 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun numberOfRotation(items: List<Int>): Int {
+    override fun numberOfRotation(items: List<Int>) {
         var start = 0
         var end = items.lastIndex
 
@@ -248,10 +239,9 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun binarySearchInRotatedList(items: List<Int>, item: Int): Int {
+    override fun binarySearchInRotatedList(items: List<Int>, item: Int) {
         var start = 0
         var end = items.lastIndex
 
@@ -296,10 +286,9 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun peakElement(items: List<Int>): Int {
+    override fun peakElement(items: List<Int>) {
         var start = 0
         var end = 0
         var result = -1
@@ -319,10 +308,9 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun firstOccurrenceOfOne(items: List<Int>): Int {
+    override fun firstOccurrenceOfOne(items: List<Int>) {
         var start = 0
         var end = 1
         while (end <= items.lastIndex && items[end] < 1) {
@@ -344,10 +332,9 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun maximumElementInBitonicList(items: List<Int>): Int {
+    override fun maximumElementInBitonicList(items: List<Int>) {
         var start = 0
         var end = items.lastIndex
 
@@ -367,10 +354,9 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun binarySearchInBitonicList(items: List<Int>, item: Int): Int {
+    override fun binarySearchInBitonicList(items: List<Int>, item: Int) {
         var start = 0
         var end = items.lastIndex
 
@@ -421,10 +407,9 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun binarySearchInInfiniteList(items: List<Int>, item: Int): Int {
+    override fun binarySearchInInfiniteList(items: List<Int>, item: Int) {
         var start = 0
         var end = 1
         while (end <= items.lastIndex && items[end] < item) {
@@ -446,10 +431,9 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun binarySearchInNearlySortedList(items: List<Int>, item: Int): Int {
+    override fun binarySearchInNearlySortedList(items: List<Int>, item: Int) {
         var start = 0
         var end = items.lastIndex
         var result = -1
@@ -475,10 +459,9 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun binarySearchInUnknownOrder(items: List<Int>, item: Int): Int {
+    override fun binarySearchInUnknownOrder(items: List<Int>, item: Int) {
         return if (items.first() < items.last()) {
             binarySearch(items, item)
         } else {
@@ -486,7 +469,7 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
     }
 
-    override fun binarySearchInMatrix(items: List<List<Int>>, item: Int): Pair<Int, Int> {
+    override fun binarySearchInMatrix(items: List<List<Int>>, item: Int) {
         var i = 0
         var j = items.first().lastIndex
 
@@ -503,6 +486,5 @@ class BinarySearchSolutions : BinarySearchProblems {
         }
 
         println(result)
-        return result
     }
 }

@@ -6,7 +6,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 class HeapSolutions : HeapProblems {
-    override fun kSmallestElement(items: List<Int>, k: Int): Int {
+    override fun kSmallestElement(items: List<Int>, k: Int) {
         val maxHeap = PriorityQueue<Int>(k) { a, b -> b - a }
         items.forEach {
             maxHeap.add(it)
@@ -17,10 +17,9 @@ class HeapSolutions : HeapProblems {
 
         val result = maxHeap.peek()
         println(result)
-        return result
     }
 
-    override fun kLargestElement(items: List<Int>, k: Int): Int {
+    override fun kLargestElement(items: List<Int>, k: Int) {
         val minHeap = PriorityQueue<Int>(k) { a, b -> a - b }
         items.forEach {
             minHeap.add(it)
@@ -31,10 +30,9 @@ class HeapSolutions : HeapProblems {
 
         val result = minHeap.peek()
         println(result)
-        return result
     }
 
-    override fun topKFrequentNumbers(items: List<Int>, k: Int): List<Int> {
+    override fun topKFrequentNumbers(items: List<Int>, k: Int) {
         val minHeap = PriorityQueue<Pair<Int, Int>>(k) { a, b -> a.second - b.second }
         val frequencyMap = mutableMapOf<Int, Int>()
 
@@ -56,10 +54,9 @@ class HeapSolutions : HeapProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun frequencySortDescending(items: List<Int>, k: Int): List<Int> {
+    override fun frequencySortDescending(items: List<Int>, k: Int) {
         val maxHeap = PriorityQueue<Pair<Int, Int>>(k) { a, b -> b.second - a.second }
         val frequencyMap = mutableMapOf<Int, Int>()
 
@@ -78,10 +75,9 @@ class HeapSolutions : HeapProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun sortKSortedList(items: List<Int>, k: Int): List<Int> {
+    override fun sortKSortedList(items: List<Int>, k: Int) {
         val minHeap = PriorityQueue<Int>(k) { a, b -> a - b }
         val result = mutableListOf<Int>()
 
@@ -99,10 +95,9 @@ class HeapSolutions : HeapProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun kClosestElement(items: List<Int>, k: Int, item: Int): List<Int> {
+    override fun kClosestElement(items: List<Int>, k: Int, item: Int) {
         val max = PriorityQueue<Pair<Int, Int>>(k) { a, b -> b.second - a.second }
         val tempItems = items.map { it to abs(it - item) }
 
@@ -122,10 +117,9 @@ class HeapSolutions : HeapProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun kClosestToOrigin(items: List<Pair<Int, Int>>, k: Int): List<Pair<Int, Int>> {
+    override fun kClosestToOrigin(items: List<Pair<Int, Int>>, k: Int) {
         val maxHeap = PriorityQueue<Pair<Int, Int>>(k) { a, b -> b.second - a.second }
         val tempItems = items.map { it.second * it.second + it.first * it.first }
 
@@ -143,10 +137,9 @@ class HeapSolutions : HeapProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun minimizeConnectingRopes(items: List<Int>): Int {
+    override fun minimizeConnectingRopes(items: List<Int>) {
         val minHeap = PriorityQueue<Int> { a, b -> a - b }
         var result = 0
 
@@ -163,10 +156,9 @@ class HeapSolutions : HeapProblems {
         }
 
         println(result)
-        return result
     }
 
-    override fun sumOfElementsBetweenSmallestK1andK2(items: List<Int>, k1: Int, k2: Int): Int {
+    override fun sumOfElementsBetweenSmallestK1andK2(items: List<Int>, k1: Int, k2: Int) {
         val maxHeapK1 = PriorityQueue<Int>(k1) { a, b -> b - a }
         val maxHeapK2 = PriorityQueue<Int>(k2) { a, b -> b - a }
 
@@ -196,6 +188,5 @@ class HeapSolutions : HeapProblems {
         }
 
         println(result)
-        return result
     }
 }
