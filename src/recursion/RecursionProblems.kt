@@ -1,26 +1,33 @@
 package recursion
 
+import java.util.Stack
+
 interface RecursionProblems {
 
-    fun deleteMiddleElementOfStack()
+    fun deleteMiddleElementOfStack(stack: Stack<Int>, mid: Int = stack.size / 2)
 
-    fun heightOfBinaryTree()
+    fun heightOfBinaryTree(node: Node?): Int
 
-    fun josephusProblem()
+    fun josephusProblem(n: Int = 7, k: Int = 3): Int
 
-    fun kthElementInGrammar()
+    fun kthElementInGrammar(n: Int = 3, k: Int = 2): Int
 
-    fun nBitBinaryNumber()
+    fun nBitBinaryNumber(length: Int = 4, unusedOne: Int = 0, result: String = "")
 
-    fun permutationWithCaseChange()
+    fun permutationWithCaseChange(string: String, currentIndex: Int = 0, result: String = "")
 
-    fun permutationWithLetter()
+    fun permutationWithLetter(string: String, currentIndex: Int = 0, result: String = "")
 
-    fun permutationWithSpaces()
+    fun permutationWithSpaces(string: String, currentIndex: Int = 0, result: String = "")
 
-    fun printAllSubSequences()
+    fun printAllSubSequences(string: String, currentIndex: Int = 0, result: String = "")
 
-    fun printUniqueSubSequences()
+    fun printUniqueSubSequences(
+        string: String,
+        currentIndex: Int = 0,
+        tempResult: String = "",
+        result: MutableSet<String> = mutableSetOf()
+    )
 
     fun reverseStack()
 
