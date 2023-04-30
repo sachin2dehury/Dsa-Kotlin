@@ -14,26 +14,26 @@ interface RecursionProblems {
 
     fun nBitBinaryNumber(length: Int = 4, unusedOne: Int = 0, result: String = "")
 
-    fun permutationWithCaseChange(string: String, currentIndex: Int = 0, result: String = "")
+    fun permutationWithCaseChange(string: String = "abc", currentIndex: Int = 0, result: String = "")
 
-    fun permutationWithLetter(string: String, currentIndex: Int = 0, result: String = "")
+    fun permutationWithLetter(string: String = "a1b2", currentIndex: Int = 0, result: String = "")
 
-    fun permutationWithSpaces(string: String, currentIndex: Int = 0, result: String = "")
+    fun permutationWithSpaces(string: String = "abc", currentIndex: Int = 0, result: String = "")
 
-    fun printAllSubSequences(string: String, currentIndex: Int = 0, result: String = "")
+    fun printAllSubSequences(string: String = "abc", currentIndex: Int = 0, result: String = "")
 
     fun printUniqueSubSequences(
-        string: String,
+        string: String = "abaa",
         currentIndex: Int = 0,
         tempResult: String = "",
-        result: MutableSet<String> = mutableSetOf()
+        result: MutableSet<String>
     )
 
-    fun reverseStack()
+    fun reverseStack(stack: Stack<Int>)
 
-    fun sortList()
+    fun sortList(items: MutableList<Int>)
 
-    fun sortStack()
+    fun sortStack(stack: Stack<Int>)
 
-    fun towerOfHanoi()
+    fun towerOfHanoi(discCount: Int, from: Char = 'A', to: Char = 'B', via: Char = 'C')
 }

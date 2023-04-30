@@ -2,6 +2,7 @@ package recursion
 
 import java.util.Stack
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.pow
 
 class RecursionSolutions : RecursionProblems {
@@ -16,7 +17,6 @@ class RecursionSolutions : RecursionProblems {
             stack.push(item)
         }
     }
-
 
     override fun heightOfBinaryTree(node: Node?): Int {
         if (node == null) return 0
@@ -78,10 +78,10 @@ class RecursionSolutions : RecursionProblems {
             println(result)
             return
         }
-        if (result.isEmpty()) {
-            permutationWithSpaces(string, currentIndex + 1, result + string[currentIndex])
+        if (result.isNotEmpty()) {
+            permutationWithSpaces(string, currentIndex + 1, result + ' ' + string[currentIndex])
         }
-        permutationWithSpaces(string, currentIndex + 1, result + ' ' + string[currentIndex])
+        permutationWithSpaces(string, currentIndex + 1, result + string[currentIndex])
     }
 
     override fun printAllSubSequences(string: String, currentIndex: Int, result: String) {
@@ -107,19 +107,65 @@ class RecursionSolutions : RecursionProblems {
         printUniqueSubSequences(string, currentIndex + 1, tempResult + string[currentIndex], result)
     }
 
-    override fun reverseStack() {
-
+    override fun reverseStack(stack: Stack<Int>) {
+        if (stack.isEmpty()) return
+        val lastItem = stack.pop()
+        reverseStack(stack)
+        pushItemAtBottom(stack, lastItem)
     }
 
-    override fun sortList() {
-
+    private fun pushItemAtBottom(stack: Stack<Int>, item: Int) {
+        if (stack.isEmpty()) {
+            stack.push(item)
+            return
+        }
+        val lastItem = stack.pop()
+        pushItemAtBottom(stack, item)
+        stack.push(lastItem)
     }
 
-    override fun sortStack() {
-
+    override fun sortList(items: MutableList<Int>) {
+        if (items.size <= 1) return
+        val lastItem = items.removeLast()
+        sortList(items)
+        insertItemIntoSortedList(items, lastItem)
     }
 
-    override fun towerOfHanoi() {
+    private fun insertItemIntoSortedList(items: MutableList<Int>, item: Int) {
+        if (items.isEmpty()) {
+            items.add(item)
+            return
+        }
+        val lastItem = items.removeLast()
+        val minItem = min(lastItem, item)
+        val maxItem = max(lastItem, item)
+        insertItemIntoSortedList(items, minItem)
+        items.add(maxItem)
+    }
 
+    override fun sortStack(stack: Stack<Int>) {
+        if (stack.size <= 1) return
+        val lastItem = stack.pop()
+        sortStack(stack)
+        pushItemIntoSortedStack(stack, lastItem)
+    }
+
+    private fun pushItemIntoSortedStack(stack: Stack<Int>, item: Int) {
+        if (stack.isEmpty()) {
+            stack.push(item)
+            return
+        }
+        val lastItem = stack.pop()
+        val minItem = min(lastItem, item)
+        val maxItem = max(lastItem, item)
+        pushItemIntoSortedStack(stack, minItem)
+        stack.push(maxItem)
+    }
+
+    override fun towerOfHanoi(discCount: Int, from: Char, to: Char, via: Char) {
+        if (discCount == 0) return
+        towerOfHanoi(discCount - 1, from, via, to)
+        println("Disc is moved from $from to $to via $via")
+        towerOfHanoi(discCount - 1, via, to, from)
     }
 }
