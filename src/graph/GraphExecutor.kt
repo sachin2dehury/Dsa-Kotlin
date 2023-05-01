@@ -3,7 +3,7 @@ package graph
 object GraphExecutor : GraphProblems by GraphSolutions() {
 
     operator fun invoke() {
-        val graph = Graph(
+        val directedGraph = Graph(
             totalNodes = 4,
             edges = listOf(
                 Graph.Edge(0, 1),
@@ -15,8 +15,46 @@ object GraphExecutor : GraphProblems by GraphSolutions() {
             )
         )
 
-        breadthFirstSearch(graph)
+        val undirectedGraph = Graph(
+            totalNodes = 4,
+            edges = listOf(
+                Graph.Edge(0, 1),
+                Graph.Edge(0, 2),
+                Graph.Edge(1, 2),
+                Graph.Edge(2, 3),
+            )
+        )
 
-        depthFirstSearch(graph)
+        val weightedGraph = Graph(
+            totalNodes = 5,
+            edges = listOf(
+                Graph.Edge(0, 1, 10),
+                Graph.Edge(0, 4, 3),
+                Graph.Edge(1, 2, 2),
+                Graph.Edge(1, 4, 4),
+                Graph.Edge(2, 3, 9),
+                Graph.Edge(3, 2, 7),
+                Graph.Edge(4, 1, 1),
+                Graph.Edge(4, 2, 8),
+                Graph.Edge(4, 3, 2)
+            )
+        )
+
+        breadthFirstSearch(directedGraph)
+
+        depthFirstSearch(directedGraph)
+
+        detectCycleInUndirectionalGraph(undirectedGraph)
+
+        // Todo Sachin
+        detectCycleInDirectionalGraph(directedGraph)
+
+        dijkstraAlgo(weightedGraph)
+
+        kruskalsMinimumSpanningTree(weightedGraph)
+
+        floydWarshallAlgo(weightedGraph)
+
+        bellmanFordAlgo(weightedGraph)
     }
 }
