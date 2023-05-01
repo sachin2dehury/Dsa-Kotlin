@@ -2,9 +2,9 @@ package graph
 
 interface GraphProblems {
 
-    fun breadthFirstSearch(graph: Graph, startIndex: Int = 0)
+    fun breadthFirstSearch(graph: Graph)
 
-    fun depthFirstSearch(graph: Graph, startIndex: Int = 0)
+    fun depthFirstSearch(graph: Graph)
 
     fun detectCycleInUndirectionalGraph(graph: Graph)
 
@@ -20,4 +20,5 @@ interface GraphProblems {
 
     fun floydWarshallAlgo(graph: Graph)
 
+    fun topologicalSort(graph: Graph)
 }

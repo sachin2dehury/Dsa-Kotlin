@@ -5,22 +5,26 @@ import java.util.Stack
 import kotlin.math.min
 
 class GraphSolutions : GraphProblems {
-    override fun breadthFirstSearch(graph: Graph, startIndex: Int) {
+    override fun breadthFirstSearch(graph: Graph) {
         val queue = ArrayDeque<Int>()
-        val visited = mutableSetOf<Int>()
+        val visitedSet = mutableSetOf<Int>()
         val result = mutableListOf<Int>()
 
-        queue.add(startIndex)
-        visited.add(startIndex)
+        for (i in 0 until graph.totalNodes) {
+            if (!visitedSet.contains(i)) {
+                queue.add(i)
+                visitedSet.add(i)
 
-        while (queue.isNotEmpty()) {
-            val currentIndex = queue.removeFirst()
-            result.add(currentIndex)
+                while (queue.isNotEmpty()) {
+                    val currentIndex = queue.removeFirst()
+                    result.add(currentIndex)
 
-            for (edge in graph.edges) {
-                if (edge.start == currentIndex && !visited.contains(edge.destination)) {
-                    visited.add(edge.destination)
-                    queue.add(edge.destination)
+                    for (edge in graph.edges) {
+                        if (edge.start == currentIndex && !visitedSet.contains(edge.destination)) {
+                            visitedSet.add(edge.destination)
+                            queue.add(edge.destination)
+                        }
+                    }
                 }
             }
         }
@@ -28,24 +32,30 @@ class GraphSolutions : GraphProblems {
         println(result)
     }
 
-    override fun depthFirstSearch(graph: Graph, startIndex: Int) {
+    override fun depthFirstSearch(graph: Graph) {
         val stack = Stack<Int>()
-        val visited = mutableSetOf<Int>()
+        val visitedSet = mutableSetOf<Int>()
 
         val result = mutableListOf<Int>()
 
-        stack.push(startIndex)
-        visited.add(startIndex)
+        for (i in 0 until graph.totalNodes) {
+            if (!visitedSet.contains(i)) {
+                stack.push(i)
 
-        while (stack.isNotEmpty()) {
-            val currentIndex = stack.pop()
-            result.add(currentIndex)
-
-            for (edge in graph.edges) {
-                if (edge.start == currentIndex && !visited.contains(edge.destination)) {
-                    visited.add(edge.destination)
-                    stack.push(edge.destination)
+                while (stack.isNotEmpty()) {
+                    val currentIndex = stack.pop()
+                    if (currentIndex != i) {
+                        result.add(currentIndex)
+                    }
+                    for (edge in graph.edges) {
+                        if (edge.start == currentIndex && !visitedSet.contains(edge.destination)) {
+                            visitedSet.add(edge.destination)
+                            stack.push(edge.destination)
+                        }
+                    }
                 }
+                visitedSet.add(i)
+                result.add(i)
             }
         }
 
@@ -54,12 +64,12 @@ class GraphSolutions : GraphProblems {
 
     override fun detectCycleInUndirectionalGraph(graph: Graph) {
         val stack = Stack<Int>()
-        val visited = mutableSetOf<Int>()
+        val visitedSet = mutableSetOf<Int>()
 
         var result = false
 
         stack.push(0)
-        visited.add(0)
+        visitedSet.add(0)
 
         while (stack.isNotEmpty() && !result) {
             val currentIndex = stack.pop()
@@ -67,8 +77,8 @@ class GraphSolutions : GraphProblems {
             for (edge in graph.edges) {
                 if (edge.start == currentIndex) {
 
-                    if (!visited.contains(edge.destination)) {
-                        visited.add(edge.destination)
+                    if (!visitedSet.contains(edge.destination)) {
+                        visitedSet.add(edge.destination)
                         stack.push(edge.destination)
                     } else {
                         result = true
@@ -82,7 +92,7 @@ class GraphSolutions : GraphProblems {
     }
 
     override fun detectCycleInDirectionalGraph(graph: Graph) {
-
+        TODO("Not yet implemented")
     }
 
     override fun dijkstraAlgo(graph: Graph, startIndex: Int) {
@@ -203,5 +213,37 @@ class GraphSolutions : GraphProblems {
         for (list in result) {
             println(list.toList())
         }
+    }
+
+    override fun topologicalSort(graph: Graph) {
+        val stack = Stack<Int>()
+        val visitedSet = mutableSetOf<Int>()
+
+        val result = mutableListOf<Int>()
+
+        for (i in 0 until graph.totalNodes) {
+            if (!visitedSet.contains(i)) {
+                stack.push(i)
+
+                while (stack.isNotEmpty()) {
+                    val currentIndex = stack.pop()
+                    if (currentIndex != i) {
+                        result.add(currentIndex)
+                    }
+
+                    for (edge in graph.edges) {
+                        if (edge.start == currentIndex && !visitedSet.contains(edge.destination)) {
+                            visitedSet.add(edge.destination)
+                            stack.push(edge.destination)
+                        }
+                    }
+                }
+
+                visitedSet.add(i)
+                result.add(i)
+            }
+        }
+
+        println(result.asReversed())
     }
 }

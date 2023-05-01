@@ -47,7 +47,7 @@ object GraphExecutor : GraphProblems by GraphSolutions() {
         detectCycleInUndirectionalGraph(undirectedGraph)
 
         // Todo Sachin
-        detectCycleInDirectionalGraph(directedGraph)
+//        detectCycleInDirectionalGraph(directedGraph)
 
         dijkstraAlgo(weightedGraph)
 
@@ -56,5 +56,20 @@ object GraphExecutor : GraphProblems by GraphSolutions() {
         floydWarshallAlgo(weightedGraph)
 
         bellmanFordAlgo(weightedGraph)
+
+        val graph = Graph(
+            totalNodes = 6,
+            edges = listOf(
+                Graph.Edge(5, 2),
+                Graph.Edge(5, 0),
+                Graph.Edge(4, 0),
+                Graph.Edge(4, 1),
+                Graph.Edge(2, 3),
+                Graph.Edge(3, 1)
+            )
+        )
+
+        // Todo Sachin
+        topologicalSort(graph)
     }
 }
