@@ -1,4 +1,4 @@
-import graph.GraphExecutor
+import array.ArrayExecutor
 
 fun main() {
 //    StackExecutor()
@@ -7,5 +7,6 @@ fun main() {
 //    SlidingWindowExecutor()
 //    RecursionExecutor()
 //    DuplicateExecutor()
-    GraphExecutor()
+//    GraphExecutor()
+    ArrayExecutor()
 }
