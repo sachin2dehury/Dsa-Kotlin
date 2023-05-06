@@ -1,6 +1,8 @@
 package array
 
+import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 class ArraySolutions : ArrayProblems {
     override fun pairSum(items: ArrayList<Int>, sum: Int) {
@@ -76,11 +78,45 @@ class ArraySolutions : ArrayProblems {
         var result = 1
         sortedList.forEach {
             if (it == result) {
-                result ++
+                result++
             }
         }
 
         println(result)
+    }
+
+    override fun minimizeTheMaximumDifference(items: List<Int>, k: Int) {
+        var maxHeight = Int.MIN_VALUE
+        var minHeight = Int.MAX_VALUE
+        items.forEach {
+            maxHeight = max(maxHeight, it)
+            minHeight = min(minHeight, it)
+        }
+        val diff = maxHeight - minHeight
+
+        val avgHeight = (items.sum().toFloat() / items.size).roundToInt()
+
+
+        maxHeight = Int.MIN_VALUE
+        minHeight = Int.MAX_VALUE
+        items.forEach {
+            var newItem = it
+            if (it < avgHeight) {
+                newItem += k
+            } else {
+                newItem -= k
+            }
+
+            maxHeight = max(maxHeight, newItem)
+            minHeight = min(minHeight, newItem)
+        }
+
+        val newDiff = maxHeight - minHeight
+
+        val result = min(newDiff, diff)
+
+        println(result)
+
     }
 
     override fun unionAndIntersectionOfSortedArray(array1: ArrayList<Int>, array2: ArrayList<Int>) {

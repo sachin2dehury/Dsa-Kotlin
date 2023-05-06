@@ -8,5 +8,6 @@ object ArrayExecutor : ArrayProblems by ArraySolutions() {
         firstRepeatingElement()
         firstMissingElement()
         unionAndIntersectionOfSortedArray()
+        minimizeTheMaximumDifference()
     }
 }

@@ -14,4 +14,6 @@ interface ArrayProblems {
         array1: ArrayList<Int> = arrayListOf(1, 3, 4, 5, 7),
         array2: ArrayList<Int> = arrayListOf(2, 3, 5, 6)
     )
+
+    fun minimizeTheMaximumDifference(items: List<Int> = listOf(7, 4, 8, 8, 8, 9), k: Int = 6)
 }
