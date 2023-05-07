@@ -21,4 +21,20 @@ interface GraphProblems {
     fun floydWarshallAlgo(graph: Graph)
 
     fun topologicalSort(graph: Graph)
+
+    fun numberOfIslands(
+        graph: List<List<Int>> =
+            listOf(
+                listOf(1, 0, 1, 0, 0, 0, 1, 1, 1, 1),
+                listOf(0, 0, 1, 0, 1, 0, 1, 0, 0, 0),
+                listOf(1, 1, 1, 1, 0, 0, 1, 0, 0, 0),
+                listOf(1, 0, 0, 1, 0, 1, 0, 0, 0, 0),
+                listOf(1, 1, 1, 1, 0, 0, 0, 1, 1, 1),
+                listOf(0, 1, 0, 1, 0, 0, 1, 1, 1, 1),
+                listOf(0, 0, 0, 0, 0, 1, 1, 1, 0, 0),
+                listOf(0, 0, 0, 1, 0, 0, 1, 1, 1, 0),
+                listOf(1, 0, 1, 0, 1, 0, 0, 1, 0, 0),
+                listOf(1, 1, 1, 1, 0, 0, 0, 1, 1, 1)
+            )
+    )
 }

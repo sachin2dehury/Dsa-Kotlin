@@ -246,4 +246,8 @@ class GraphSolutions : GraphProblems {
 
         println(result.asReversed())
     }
+
+    override fun numberOfIslands(graph: List<List<Int>>) {
+
+    }
 }

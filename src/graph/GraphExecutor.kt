@@ -69,7 +69,8 @@ object GraphExecutor : GraphProblems by GraphSolutions() {
             )
         )
 
-        // Todo Sachin
         topologicalSort(graph)
+
+        numberOfIslands()
     }
 }

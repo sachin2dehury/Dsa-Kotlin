@@ -153,4 +153,44 @@ class ArraySolutions : ArrayProblems {
         println(union)
         println(intersection)
     }
+
+    override fun printMatrixSpirally(items: List<List<Int>>) {
+        val result = mutableListOf<Int>()
+
+        var leftIndex = 0
+        var rightIndex = items.first().lastIndex
+        var topIndex = 0
+        var bottomIndex = items.lastIndex
+
+        while (true) {
+            if (leftIndex > rightIndex) break
+
+            for (i in leftIndex..rightIndex) {
+                result.add(items[topIndex][i])
+            }
+            topIndex++
+
+            if (topIndex > bottomIndex) break
+
+            for (i in topIndex..bottomIndex) {
+                result.add(items[i][rightIndex])
+            }
+            rightIndex--
+
+            if (leftIndex > rightIndex) break
+
+            for (i in rightIndex downTo leftIndex) {
+                result.add(items[bottomIndex][i])
+            }
+            bottomIndex--
+
+            if (topIndex > bottomIndex) break
+            for (i in bottomIndex downTo topIndex) {
+                result.add(items[i][leftIndex])
+            }
+            leftIndex++
+        }
+
+        println(result)
+    }
 }

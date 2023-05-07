@@ -16,4 +16,13 @@ interface ArrayProblems {
     )
 
     fun minimizeTheMaximumDifference(items: List<Int> = listOf(7, 4, 8, 8, 8, 9), k: Int = 6)
+
+    fun printMatrixSpirally(
+        items: List<List<Int>> = listOf(
+            listOf(1, 2, 3, 4),
+            listOf(5, 6, 7, 8),
+            listOf(9, 10, 11, 12),
+            listOf(13, 14, 15, 16)
+        )
+    )
 }

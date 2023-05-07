@@ -9,5 +9,6 @@ object ArrayExecutor : ArrayProblems by ArraySolutions() {
         firstMissingElement()
         unionAndIntersectionOfSortedArray()
         minimizeTheMaximumDifference()
+        printMatrixSpirally()
     }
 }
