@@ -72,5 +72,7 @@ object GraphExecutor : GraphProblems by GraphSolutions() {
         topologicalSort(graph)
 
         numberOfIslands()
+
+        minimumCostPath()
     }
 }

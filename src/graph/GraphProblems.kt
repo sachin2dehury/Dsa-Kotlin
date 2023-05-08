@@ -37,4 +37,12 @@ interface GraphProblems {
                 listOf(1, 1, 1, 1, 0, 0, 0, 1, 1, 1)
             )
     )
+
+    fun minimumCostPath(
+        graph: List<List<Int>> = listOf(
+            listOf(1, 2, 3),
+            listOf(4, 8, 2),
+            listOf(1, 5, 3)
+        )
+    )
 }

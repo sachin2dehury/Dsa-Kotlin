@@ -10,5 +10,6 @@ object ArrayExecutor : ArrayProblems by ArraySolutions() {
         unionAndIntersectionOfSortedArray()
         minimizeTheMaximumDifference()
         printMatrixSpirally()
+        mergeOverlappingIntervals()
     }
 }

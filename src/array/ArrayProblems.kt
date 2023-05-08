@@ -25,4 +25,15 @@ interface ArrayProblems {
             listOf(13, 14, 15, 16)
         )
     )
+
+    fun mergeOverlappingIntervals(
+        items: List<Pair<Int, Int>> = listOf(
+            1 to 5,
+            2 to 3,
+            4 to 6,
+            7 to 8,
+            8 to 10,
+            12 to 15
+        )
+    )
 }

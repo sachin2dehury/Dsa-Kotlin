@@ -1,5 +1,6 @@
 package array
 
+import java.util.PriorityQueue
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -189,6 +190,34 @@ class ArraySolutions : ArrayProblems {
                 result.add(items[i][leftIndex])
             }
             leftIndex++
+        }
+
+        println(result)
+    }
+
+    override fun mergeOverlappingIntervals(items: List<Pair<Int, Int>>) {
+        val minHeap = PriorityQueue<Pair<Int, Int>> { a, b -> a.first - b.first }
+
+        minHeap.addAll(items)
+
+        var counter = 0
+        val result = mutableListOf<Pair<Int,Int>>()
+
+        while (minHeap.size > 1 && counter < items.size) {
+            counter++
+            val firstInterval = minHeap.poll()
+            val secondInterval = minHeap.poll()
+
+            if (firstInterval.second >= secondInterval.first) {
+                minHeap.add(firstInterval.first to max(firstInterval.second, secondInterval.second))
+            } else {
+                result.add(firstInterval)
+                minHeap.add(secondInterval)
+            }
+        }
+
+        while (minHeap.isNotEmpty()) {
+            result.add(minHeap.poll())
         }
 
         println(result)

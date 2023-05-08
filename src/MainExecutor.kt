@@ -1,3 +1,5 @@
+import greedy.GreedyExecutor
+
 fun main() {
 //    StackExecutor()
 //    HeapExecutor()
@@ -8,5 +10,6 @@ fun main() {
 //    GraphExecutor()
 //    ArrayExecutor()
 //    DynamicProgrammingExecutor()
+    GreedyExecutor()
 
 }
