@@ -1,4 +1,4 @@
-import greedy.GreedyExecutor
+import dynamicprogramming.DynamicProgrammingExecutor
 
 fun main() {
 //    StackExecutor()
@@ -9,7 +9,7 @@ fun main() {
 //    DuplicateExecutor()
 //    GraphExecutor()
 //    ArrayExecutor()
-//    DynamicProgrammingExecutor()
-    GreedyExecutor()
+    DynamicProgrammingExecutor()
+//    GreedyExecutor()
 
 }

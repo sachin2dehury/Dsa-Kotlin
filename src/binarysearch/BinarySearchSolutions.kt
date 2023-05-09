@@ -487,4 +487,8 @@ class BinarySearchSolutions : BinarySearchProblems {
 
         println(result)
     }
+
+    override fun minimizeNumberOfPages() {
+        TODO("Not yet implemented")
+    }
 }

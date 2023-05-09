@@ -95,4 +95,6 @@ interface BinarySearchProblems {
         ),
         item: Int = 29,
     )
+
+    fun minimizeNumberOfPages()
 }
