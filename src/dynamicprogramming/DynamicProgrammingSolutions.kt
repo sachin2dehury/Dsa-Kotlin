@@ -201,7 +201,7 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
                 if (i == 0 || j == 0) {
                     cache[i][j] = 0
                 } else if (string1[i - 1] == string2[j - 1]) {
-                    cache[i][j] = max(cache[i - 1][j - 1] + 1, max(cache[i - 1][j], cache[i][j - 1]))
+                    cache[i][j] = cache[i - 1][j - 1] + 1
                 } else {
                     cache[i][j] = max(cache[i - 1][j], cache[i][j - 1])
                 }
@@ -213,15 +213,62 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     }
 
     override fun longestCommonSubString(string1: String, string2: String) {
-        TODO("Not yet implemented")
+        val cache = Array(string1.length + 1) { Array(string2.length + 1) { 0 } }
+
+        var result = Int.MIN_VALUE
+
+        for (i in 0..string1.length) {
+            for (j in 0..string2.length) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (string1[i - 1] == string2[j - 1]) {
+                    cache[i][j] = cache[i - 1][j - 1] + 1
+                } else {
+                    cache[i][j] = 0
+                }
+                result = max(result, cache[i][j])
+            }
+        }
+
+        println(result)
     }
 
     override fun longestPalindromicSubsequence(string: String) {
-        TODO("Not yet implemented")
+        val cache = Array(string.length + 1) { Array(string.length + 1) { 0 } }
+
+        for (i in 0..string.length) {
+            for (j in 0..string.length) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (string[i - 1] == string[string.length - j]) {
+                    cache[i][j] = cache[i - 1][j - 1] + 1
+                } else {
+                    cache[i][j] = max(cache[i][j - 1], cache[i - 1][j])
+                }
+            }
+        }
+
+        val result = cache[string.length][string.length]
+        println(result)
     }
 
     override fun longestRepeatingSubsequence(string: String) {
-        TODO("Not yet implemented")
+        val cache = Array(string.length + 1) { Array(string.length + 1) { 0 } }
+
+        for (i in 0..string.length) {
+            for (j in 0..string.length) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (string[i - 1] == string[j - 1] && i != j) {
+                    cache[i][j] = cache[i - 1][j - 1] + 1
+                } else {
+                    cache[i][j] = max(cache[i][j - 1], cache[i - 1][j])
+                }
+            }
+        }
+
+        val result = cache[string.length][string.length]
+        println(result)
     }
 
     override fun matrixChainMultiplication(items: List<Int>) {

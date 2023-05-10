@@ -24,5 +24,8 @@ object DynamicProgrammingExecutor: DynamicProgrammingProblems by DynamicProgramm
         equalSum()
         knapsack()
         longestCommonSubSequence()
+        longestCommonSubString()
+        longestPalindromicSubsequence()
+        longestRepeatingSubsequence()
     }
 }
