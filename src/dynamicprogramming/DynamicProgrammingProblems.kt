@@ -10,7 +10,7 @@ interface DynamicProgrammingProblems {
 
     fun countOfSubsetWithDifference(items: List<Int> = listOf(1, 2, 3, 1, 2), difference: Int = 1)
 
-    fun diameterOfBinaryTree(node: Node?): Int
+    fun diameterOfBinaryTree(node: Node?)
 
     fun eggDroppingProblem(floorCount: Int = 10, eggCount: Int = 2)
 
@@ -30,4 +30,36 @@ interface DynamicProgrammingProblems {
     fun longestRepeatingSubsequence(string: String = "ATACTCGGA")
 
     fun matrixChainMultiplication(items: List<Int> = listOf(10, 30, 5, 60))
+
+    fun maximumNumberOfWaysToChangeCoins(items: List<Int> = listOf(1, 2, 3), sum: Int = 4)
+
+    fun maximumPathSumOfBinaryTree(node: Node?)
+
+    fun minimumNumberOfDeletionForPalindrome(string: String = "aebcbda")
+
+    fun minimumDifferenceOfSum(items: List<Int> = listOf(3, 1, 4, 2, 2, 1))
+
+    fun minimumInsertionForPalindrome(string: String = "aebcbda")
+
+    fun minimumNumberOfCoinsToChange(items: List<Int>, sum: Int)
+
+    fun minimumNumberOfInsertAndDeleteToMatch(string1: String, string2: String)
+
+    fun minimumNumberOfPalindromePartitioning(string: String)
+
+    fun printLongestCommonSubsequence(string1: String, string2: String)
+
+    fun printShortestCommonSuperSequence(string1: String, string2: String)
+
+    fun rodCuttingProblem(items: List<Int>, length: Int)
+
+    fun patternMatching(string: String, pattern: String)
+
+    fun shortestCommonSuperSequence(string1: String, string2: String)
+
+    fun subsetSum(items: List<Int>, sum: Int)
+
+    fun targetSum(items: List<Int>, sum: Int)
+
+    fun unboundedKnapsack(items: List<Pair<Int, Int>>, weight: Int)
 }

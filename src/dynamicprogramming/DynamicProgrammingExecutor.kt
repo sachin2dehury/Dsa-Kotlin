@@ -1,22 +1,22 @@
 package dynamicprogramming
 
-object DynamicProgrammingExecutor: DynamicProgrammingProblems by DynamicProgrammingSolutions() {
+object DynamicProgrammingExecutor : DynamicProgrammingProblems by DynamicProgrammingSolutions() {
 
     operator fun invoke() {
+
+        val root = Node(10)
+        root.left = Node(2)
+        root.right = Node(10)
+        root.left?.left = Node(20)
+        root.left?.right = Node(1)
+        root.right?.right = Node(-25)
+        root.right?.right?.left = Node(3)
+        root.right?.right?.right = Node(4)
 
         largestSumContiguousSubArray()
         minimumJumpsToReachEnd()
 
-        val root = Node(1)
-        root.left = Node(2)
-        root.right = Node(3)
-        root.left?.right = Node(4)
-        root.right?.left = Node(5)
-        root.right?.right = Node(6)
-        root.right?.left?.left = Node(7)
-        root.right?.left?.right = Node(8)
-
-        println(diameterOfBinaryTree(root))
+        diameterOfBinaryTree(root)
 
         countOfSubsetSum()
         countOfSubsetWithDifference()
@@ -27,5 +27,16 @@ object DynamicProgrammingExecutor: DynamicProgrammingProblems by DynamicProgramm
         longestCommonSubString()
         longestPalindromicSubsequence()
         longestRepeatingSubsequence()
+
+        maximumNumberOfWaysToChangeCoins()
+
+        maximumPathSumOfBinaryTree(root)
+
+        minimumNumberOfDeletionForPalindrome()
+
+        minimumDifferenceOfSum()
+
+        minimumInsertionForPalindrome()
+
     }
 }

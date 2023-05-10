@@ -107,15 +107,21 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
         println(result)
     }
 
-    private var result = 0
+    private var diameterOfBinaryTreeResult = Int.MIN_VALUE
 
-    override fun diameterOfBinaryTree(node: Node?): Int {
+    override fun diameterOfBinaryTree(node: Node?) {
+        diameterOfBinaryTreeResult = 0
+        diameterOfBinaryTreeInternal(node)
+        println(diameterOfBinaryTreeResult)
+    }
+
+    private fun diameterOfBinaryTreeInternal(node: Node?): Int {
         if (node == null) return 0
-        val right = diameterOfBinaryTree(node.right)
-        val left = diameterOfBinaryTree(node.left)
+        val right = diameterOfBinaryTreeInternal(node.right)
+        val left = diameterOfBinaryTreeInternal(node.left)
 
         val diameterViaCurrent = right + left + 1
-        result = max(result, diameterViaCurrent)
+        diameterOfBinaryTreeResult = max(diameterOfBinaryTreeResult, diameterViaCurrent)
 
         return 1 + max(left, right)
     }
@@ -272,6 +278,179 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     }
 
     override fun matrixChainMultiplication(items: List<Int>) {
+//        val cache = Array(items.size) { Array(items.size) { Int.MAX_VALUE } }
+//
+//        for (i in 0 until items.size) {
+//            for (j in 0 until items.size) {
+//                if (i == 0) {
+//                    cache[i][j] = 0
+//                } else if (j > i) {
+//                    cache[i][j] = Int.MAX_VALUE
+//                } else {
+//                    for (k in 0..j) {
+//                        val temp = cache[i][k] + cache[k + 1][j] + items[i] * items[k] * items[j - 1]
+//                        cache[i][j] = min(cache[i][j], temp)
+//                    }
+//                }
+//            }
+//        }
+//
+//        val result = cache[items.lastIndex][items.lastIndex]
+//        println(result)
+    }
+
+    override fun maximumNumberOfWaysToChangeCoins(items: List<Int>, sum: Int) {
+        val cache = Array(sum + 1) { Array(items.size + 1) { 0 } }
+
+        for (i in 0..sum) {
+            for (j in 0..items.size) {
+                if (i == 0) {
+                    cache[i][j] = 1
+                } else if (j == 0) {
+                    cache[i][j] = 0
+                } else if (j > i) {
+                    cache[i][j] = cache[i][j - 1]
+                } else {
+                    cache[i][j] = cache[i][j - 1] + cache[i - items[j - 1]][j]
+                }
+            }
+        }
+
+        val result = cache[sum][items.size]
+        println(result)
+    }
+
+    private var maximumPathSumOfBinaryTreeResult = Int.MIN_VALUE
+
+    override fun maximumPathSumOfBinaryTree(node: Node?) {
+        maximumPathSumOfBinaryTreeResult = 0
+        maximumPathSumOfBinaryTreeInternal(node)
+        println(maximumPathSumOfBinaryTreeResult)
+    }
+
+    private fun maximumPathSumOfBinaryTreeInternal(node: Node?): Int {
+        if (node == null) return 0
+        val right = maximumPathSumOfBinaryTreeInternal(node.right)
+        val left = maximumPathSumOfBinaryTreeInternal(node.left)
+
+        val pathSumViaCurrent = node.data + left + right
+
+        maximumPathSumOfBinaryTreeResult = max(maximumPathSumOfBinaryTreeResult, pathSumViaCurrent)
+
+        return node.data + max(left, right)
+    }
+
+    override fun minimumNumberOfDeletionForPalindrome(string: String) {
+        val cache = Array(string.length + 1) { Array(string.length + 1) { 0 } }
+
+        for (i in 0..string.length) {
+            for (j in 0..string.length) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (string[i - 1] == string[string.length - j]) {
+                    cache[i][j] = cache[i - 1][j - 1] + 1
+                } else {
+                    cache[i][j] = max(cache[i][j - 1], cache[i - 1][j])
+                }
+            }
+        }
+
+        val lcs = cache[string.length][string.length]
+
+        val result = string.length - lcs
+        println(result)
+    }
+
+    override fun minimumDifferenceOfSum(items: List<Int>) {
+        val totalSum = items.sum()
+        val maximumSubsetSum = totalSum / 2
+
+        val cache = Array(items.size + 1) { Array(maximumSubsetSum + 1) { false } }
+        var maxPossibleSum = Int.MIN_VALUE
+
+        for (i in 0..items.size) {
+            for (j in 0..maximumSubsetSum) {
+                if (j == 0) {
+                    cache[i][j] = true
+                } else if (i == 0) {
+                    cache[i][j] = false
+                } else if (j < items[i - 1]) {
+                    cache[i][j] = cache[i - 1][j]
+                } else {
+                    cache[i][j] = cache[i - 1][j] || cache[i - 1][j - items[i - 1]]
+                }
+                if (cache[i][j]) {
+                    maxPossibleSum = max(j, maxPossibleSum)
+                }
+            }
+        }
+
+        val result = totalSum - 2 * maxPossibleSum
+
+        println(result)
+    }
+
+    override fun minimumInsertionForPalindrome(string: String) {
+        val cache = Array(string.length + 1) { Array(string.length + 1) { 0 } }
+
+        for (i in 0..string.length) {
+            for (j in 0..string.length) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (string[i - 1] == string[string.length - j]) {
+                    cache[i][j] = cache[i - 1][j - 1] + 1
+                } else {
+                    cache[i][j] = max(cache[i][j - 1], cache[i - 1][j])
+                }
+            }
+        }
+
+        val lcs = cache[string.length][string.length]
+        val result = string.length - lcs
+        println(result)
+    }
+
+    override fun minimumNumberOfCoinsToChange(items: List<Int>, sum: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun minimumNumberOfInsertAndDeleteToMatch(string1: String, string2: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun minimumNumberOfPalindromePartitioning(string: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun printLongestCommonSubsequence(string1: String, string2: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun printShortestCommonSuperSequence(string1: String, string2: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun rodCuttingProblem(items: List<Int>, length: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun patternMatching(string: String, pattern: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun shortestCommonSuperSequence(string1: String, string2: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun subsetSum(items: List<Int>, sum: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun targetSum(items: List<Int>, sum: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun unboundedKnapsack(items: List<Pair<Int, Int>>, weight: Int) {
         TODO("Not yet implemented")
     }
 }
