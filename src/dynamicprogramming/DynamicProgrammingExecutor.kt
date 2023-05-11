@@ -38,5 +38,8 @@ object DynamicProgrammingExecutor : DynamicProgrammingProblems by DynamicProgram
 
         minimumInsertionForPalindrome()
 
+        minimumNumberOfCoinsToChange()
+
+        minimumNumberOfInsertAndDeleteToMatch()
     }
 }

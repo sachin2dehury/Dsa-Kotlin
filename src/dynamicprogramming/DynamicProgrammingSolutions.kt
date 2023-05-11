@@ -5,63 +5,6 @@ import kotlin.math.min
 
 class DynamicProgrammingSolutions : DynamicProgrammingProblems {
 
-    // [2, -1, 4, -1, -2, 1, 5, -3]
-    // [2,  1, 5,  4,  2, 3, 8,  5]
-    override fun largestSumContiguousSubArray(items: List<Int>) {
-        val cache = Array(items.size) { Int.MIN_VALUE }
-
-        var windowStartIndex = 0
-        var windowEndIndex = 0
-
-        cache[0] = items.first()
-        var result = cache.first()
-
-        for (i in 1 until items.size) {
-            if (cache[i - 1] < 0) {
-                windowStartIndex = i
-                cache[i] = items[i]
-            } else {
-                cache[i] = cache[i - 1] + items[i]
-            }
-            if (cache[i] > result) {
-                result = cache[i]
-                windowEndIndex = i
-            }
-        }
-
-        println(result)
-        println(items.subList(windowStartIndex, windowEndIndex + 1))
-    }
-
-    // [1, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9]
-    // [0, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3]
-    override fun minimumJumpsToReachEnd(items: List<Int>) {
-        var maxReached = 0
-        var minSteps = 0
-        val cache = Array(items.size) { it }
-
-        for (i in 1 until items.size) {
-            cache[i] = max(i + items[i], cache[i - 1])
-            if (maxReached < cache[i]) {
-                maxReached = cache[i]
-                minSteps++
-            }
-
-            if (maxReached <= i) {
-                println("Can't Reach")
-                return
-            }
-
-            if (maxReached >= items.lastIndex) {
-                break
-            }
-
-        }
-
-        println(minSteps)
-    }
-
-
     override fun countOfSubsetSum(items: List<Int>, sum: Int) {
         val cache = Array(sum + 1) { Array(items.size + 1) { 0 } }
 
@@ -199,6 +142,34 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
         println(result)
     }
 
+    // [2, -1, 4, -1, -2, 1, 5, -3]
+    // [2,  1, 5,  4,  2, 3, 8,  5]
+    override fun largestSumContiguousSubArray(items: List<Int>) {
+        val cache = Array(items.size) { Int.MIN_VALUE }
+
+        var windowStartIndex = 0
+        var windowEndIndex = 0
+
+        cache[0] = items.first()
+        var result = cache.first()
+
+        for (i in 1 until items.size) {
+            if (cache[i - 1] < 0) {
+                windowStartIndex = i
+                cache[i] = items[i]
+            } else {
+                cache[i] = cache[i - 1] + items[i]
+            }
+            if (cache[i] > result) {
+                result = cache[i]
+                windowEndIndex = i
+            }
+        }
+
+        println(result)
+        println(items.subList(windowStartIndex, windowEndIndex + 1))
+    }
+
     override fun longestCommonSubSequence(string1: String, string2: String) {
         val cache = Array(string1.length + 1) { Array(string2.length + 1) { 0 } }
 
@@ -308,7 +279,7 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
                     cache[i][j] = 1
                 } else if (j == 0) {
                     cache[i][j] = 0
-                } else if (j > i) {
+                } else if (items[j - 1] > i) {
                     cache[i][j] = cache[i][j - 1]
                 } else {
                     cache[i][j] = cache[i][j - 1] + cache[i - items[j - 1]][j]
@@ -328,6 +299,10 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
         println(maximumPathSumOfBinaryTreeResult)
     }
 
+    override fun maximumPathSumOfBinaryTreeLeafToLeafNode() {
+        TODO("Not yet implemented")
+    }
+
     private fun maximumPathSumOfBinaryTreeInternal(node: Node?): Int {
         if (node == null) return 0
         val right = maximumPathSumOfBinaryTreeInternal(node.right)
@@ -338,27 +313,6 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
         maximumPathSumOfBinaryTreeResult = max(maximumPathSumOfBinaryTreeResult, pathSumViaCurrent)
 
         return node.data + max(left, right)
-    }
-
-    override fun minimumNumberOfDeletionForPalindrome(string: String) {
-        val cache = Array(string.length + 1) { Array(string.length + 1) { 0 } }
-
-        for (i in 0..string.length) {
-            for (j in 0..string.length) {
-                if (i == 0 || j == 0) {
-                    cache[i][j] = 0
-                } else if (string[i - 1] == string[string.length - j]) {
-                    cache[i][j] = cache[i - 1][j - 1] + 1
-                } else {
-                    cache[i][j] = max(cache[i][j - 1], cache[i - 1][j])
-                }
-            }
-        }
-
-        val lcs = cache[string.length][string.length]
-
-        val result = string.length - lcs
-        println(result)
     }
 
     override fun minimumDifferenceOfSum(items: List<Int>) {
@@ -410,12 +364,98 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
         println(result)
     }
 
+    // [1, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9]
+    // [0, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3]
+    override fun minimumJumpsToReachEnd(items: List<Int>) {
+        var maxReached = 0
+        var minSteps = 0
+        val cache = Array(items.size) { it }
+
+        for (i in 1 until items.size) {
+            cache[i] = max(i + items[i], cache[i - 1])
+            if (maxReached < cache[i]) {
+                maxReached = cache[i]
+                minSteps++
+            }
+
+            if (maxReached <= i) {
+                println("Can't Reach")
+                return
+            }
+
+            if (maxReached >= items.lastIndex) {
+                break
+            }
+
+        }
+
+        println(minSteps)
+    }
+
+
     override fun minimumNumberOfCoinsToChange(items: List<Int>, sum: Int) {
-        TODO("Not yet implemented")
+        val cache = Array(items.size + 1) { Array(sum + 1) { Int.MAX_VALUE } }
+
+        for (i in 0..items.size) {
+            for (j in 0..sum) {
+                if (j == 0) {
+                    cache[i][j] = 0
+                } else if (i == 0) {
+                    cache[i][j] = Int.MAX_VALUE
+                } else if (j < items[i - 1]) {
+                    cache[i][j] = cache[i - 1][j]
+                } else {
+                    cache[i][j] = min(cache[i - 1][j], 1 + cache[i][j - items[i - 1]])
+                }
+            }
+        }
+
+        val result = cache[items.size][sum]
+        println(result)
+    }
+
+
+    override fun minimumNumberOfDeletionForPalindrome(string: String) {
+        val cache = Array(string.length + 1) { Array(string.length + 1) { 0 } }
+
+        for (i in 0..string.length) {
+            for (j in 0..string.length) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (string[i - 1] == string[string.length - j]) {
+                    cache[i][j] = cache[i - 1][j - 1] + 1
+                } else {
+                    cache[i][j] = max(cache[i][j - 1], cache[i - 1][j])
+                }
+            }
+        }
+
+        val lcs = cache[string.length][string.length]
+
+        val result = string.length - lcs
+        println(result)
     }
 
     override fun minimumNumberOfInsertAndDeleteToMatch(string1: String, string2: String) {
-        TODO("Not yet implemented")
+        val cache = Array(string1.length + 1) { Array(string2.length + 1) { 0 } }
+
+        for (i in 0..string1.length) {
+            for (j in 0..string2.length) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (string1[i - 1] == string2[j - 1]) {
+                    cache[i][j] = 1 + cache[i - 1][j - 1]
+                } else {
+                    cache[i][j] = max(cache[i - 1][j], cache[i][j - 1])
+                }
+            }
+        }
+
+        val lcs = cache[string1.length][string2.length]
+        val insert = string2.length - lcs
+        val delete = string1.length - lcs
+
+        println(insert to delete)
     }
 
     override fun minimumNumberOfPalindromePartitioning(string: String) {
