@@ -496,15 +496,101 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     }
 
     override fun printLongestCommonSubsequence(string1: String, string2: String) {
-        TODO("Not yet implemented")
+        val cache = Array(string1.length + 1) { Array(string2.length + 1) { 0 } }
+
+        for (i in 0..string1.length) {
+            for (j in 0..string2.length) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (string1[i - 1] == string2[j - 1]) {
+                    cache[i][j] = 1 + cache[i - 1][j - 1]
+                } else {
+                    cache[i][j] = max(cache[i][j - 1], cache[i - 1][j])
+                }
+            }
+        }
+
+        var i = string1.length
+        var j = string2.length
+        var result = ""
+        while (i > 0 && j > 0) {
+            if (cache[i][j] > max(cache[i][j - 1], cache[i - 1][j])) {
+                result = string1[i - 1] + result
+                i--
+                j--
+            } else if (cache[i][j - 1] > cache[i - 1][j]) {
+                j--
+            } else {
+                i--
+            }
+        }
+
+        println(result)
     }
 
     override fun printShortestCommonSuperSequence(string1: String, string2: String) {
-        TODO("Not yet implemented")
+        val cache = Array(string1.length + 1) { Array(string2.length + 1) { 0 } }
+
+        for (i in 0..string1.length) {
+            for (j in 0..string2.length) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (string1[i - 1] == string2[j - 1]) {
+                    cache[i][j] = cache[i - 1][j - 1] + 1
+                } else {
+                    cache[i][j] = max(cache[i - 1][j], cache[i][j - 1])
+                }
+            }
+        }
+
+        var i = string1.length
+        var j = string2.length
+        var result = ""
+        while (i > 0 && j > 0) {
+            if (cache[i][j] > max(cache[i - 1][j], cache[i][j - 1])) {
+                result = string1[i - 1] + result
+                i--
+                j--
+            } else if (cache[i - 1][j] > cache[i][j - 1]) {
+                result = string1[i - 1] + result
+                i--
+            } else {
+                result = string2[j - 1] + result
+                j--
+            }
+        }
+
+        while (i > 0) {
+            result = string1[i - 1] + result
+            i--
+        }
+
+        while (j > 0) {
+            result = string2[j - 1] + result
+            j--
+        }
+
+        println(result)
     }
 
     override fun rodCuttingProblem(items: List<Int>, length: Int) {
-        TODO("Not yet implemented")
+        val cache = Array(items.size + 1) { Array(length + 1) { 0 } }
+
+        for (i in 0..items.size) {
+            for (j in 0..length) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (i > j) {
+                    cache[i][j] = cache[i - 1][j]
+                } else {
+                    cache[i][j] = max(cache[i - 1][j], cache[i][j - i] + items[i - 1])
+                }
+            }
+        }
+
+        val result = cache[items.size][length]
+
+        println(result)
     }
 
     override fun patternMatching(string: String, pattern: String) {

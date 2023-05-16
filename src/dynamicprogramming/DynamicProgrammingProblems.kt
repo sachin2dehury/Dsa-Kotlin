@@ -49,20 +49,20 @@ interface DynamicProgrammingProblems {
 
     fun minimumNumberOfPalindromePartitioning(string: String = "nitik")
 
-    fun printLongestCommonSubsequence(string1: String, string2: String)
+    fun printLongestCommonSubsequence(string1: String = "ABC", string2: String = "ABAB")
 
-    fun printShortestCommonSuperSequence(string1: String, string2: String)
+    fun printShortestCommonSuperSequence(string1: String = "geek", string2: String = "eke")
 
-    fun rodCuttingProblem(items: List<Int>, length: Int)
+    fun rodCuttingProblem(items: List<Int> = listOf(1, 5, 8, 9, 10, 17, 17, 20), length: Int = 8)
 
-    fun patternMatching(string: String, pattern: String)
+    fun patternMatching(string: String = "ABEDFHR", pattern: String = "AEF")
 
-    fun shortestCommonSuperSequence(string1: String, string2: String)
+    fun shortestCommonSuperSequence(string1: String = "geek", string2: String = "eke")
 
-    fun subsetSum(items: List<Int>, sum: Int)
+    fun subsetSum(items: List<Int> = listOf(1, 2, 3, 3), sum: Int = 4)
 
-    fun targetSum(items: List<Int>, sum: Int)
+    fun targetSum(items: List<Int> = listOf(1, 2, 3, 3), sum: Int = 4)
 
-    fun unboundedKnapsack(items: List<Pair<Int, Int>>, weight: Int)
+    fun unboundedKnapsack(items: List<Pair<Int, Int>> = listOf(10 to 5, 30 to 10, 20 to 15), weight: Int = 100)
 
 }

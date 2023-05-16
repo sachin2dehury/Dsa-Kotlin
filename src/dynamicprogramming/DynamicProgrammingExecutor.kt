@@ -39,6 +39,8 @@ object DynamicProgrammingExecutor : DynamicProgrammingProblems by DynamicProgram
 
         matrixChainMultiplication()
         minimumNumberOfPalindromePartitioning()
-
+        printLongestCommonSubsequence()
+        printShortestCommonSuperSequence()
+        rodCuttingProblem()
     }
 }
