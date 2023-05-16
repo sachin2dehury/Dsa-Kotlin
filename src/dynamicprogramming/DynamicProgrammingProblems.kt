@@ -47,7 +47,7 @@ interface DynamicProgrammingProblems {
 
     fun minimumNumberOfInsertAndDeleteToMatch(string1: String = "geek", string2: String = "eke")
 
-    fun minimumNumberOfPalindromePartitioning(string: String)
+    fun minimumNumberOfPalindromePartitioning(string: String = "nitik")
 
     fun printLongestCommonSubsequence(string1: String, string2: String)
 

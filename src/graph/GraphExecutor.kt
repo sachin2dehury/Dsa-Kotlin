@@ -46,7 +46,6 @@ object GraphExecutor : GraphProblems by GraphSolutions() {
 
         detectCycleInUndirectionalGraph(undirectedGraph)
 
-        // Todo Sachin
 //        detectCycleInDirectionalGraph(directedGraph)
 
         dijkstraAlgo(weightedGraph)

@@ -27,19 +27,18 @@ object DynamicProgrammingExecutor : DynamicProgrammingProblems by DynamicProgram
         longestCommonSubString()
         longestPalindromicSubsequence()
         longestRepeatingSubsequence()
-
         maximumNumberOfWaysToChangeCoins()
 
         maximumPathSumOfBinaryTree(root)
 
         minimumNumberOfDeletionForPalindrome()
-
         minimumDifferenceOfSum()
-
         minimumInsertionForPalindrome()
-
         minimumNumberOfCoinsToChange()
-
         minimumNumberOfInsertAndDeleteToMatch()
+
+        matrixChainMultiplication()
+        minimumNumberOfPalindromePartitioning()
+
     }
 }

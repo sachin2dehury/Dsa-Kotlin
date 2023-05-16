@@ -248,26 +248,27 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
         println(result)
     }
 
+    // 10, 30, 5, 60
     override fun matrixChainMultiplication(items: List<Int>) {
-//        val cache = Array(items.size) { Array(items.size) { Int.MAX_VALUE } }
-//
-//        for (i in 0 until items.size) {
-//            for (j in 0 until items.size) {
-//                if (i == 0) {
-//                    cache[i][j] = 0
-//                } else if (j > i) {
-//                    cache[i][j] = Int.MAX_VALUE
-//                } else {
-//                    for (k in 0..j) {
-//                        val temp = cache[i][k] + cache[k + 1][j] + items[i] * items[k] * items[j - 1]
-//                        cache[i][j] = min(cache[i][j], temp)
-//                    }
-//                }
-//            }
-//        }
-//
-//        val result = cache[items.lastIndex][items.lastIndex]
-//        println(result)
+        val cache = Array(items.lastIndex) { Array(items.lastIndex) { Int.MAX_VALUE } }
+
+        for (l in 0 until items.lastIndex) {
+            for (i in 0 until items.lastIndex - l) {
+                val j = i + l
+                if (l == 0) {
+                    cache[i][j] = 0
+                } else {
+                    for (k in i until j) {
+                        val temp = cache[i][k] + cache[k + 1][j] + items[i] * items[k + 1] * items[j + 1]
+                        cache[i][j] = min(cache[i][j], temp)
+                    }
+                }
+            }
+        }
+
+        val result = cache[0][cache.lastIndex - 1]
+
+        println(result)
     }
 
     override fun maximumNumberOfWaysToChangeCoins(items: List<Int>, sum: Int) {
@@ -458,8 +459,40 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
         println(insert to delete)
     }
 
+    // nitik
     override fun minimumNumberOfPalindromePartitioning(string: String) {
-        TODO("Not yet implemented")
+        val cache = Array(string.length) { Array(string.length) { Int.MAX_VALUE } }
+
+        for (l in 0..string.lastIndex) {
+            for (i in 0..string.lastIndex - l) {
+                val j = i + l
+                if (l == 0 || string.isPalindrome(i, j)) {
+                    cache[i][j] = 0
+                } else {
+                    for (k in i until j) {
+                        val temp = cache[i][k] + cache[k + 1][j] + 1
+                        cache[i][j] = min(cache[i][j], temp)
+                    }
+                }
+            }
+        }
+
+        val result = cache[0][string.lastIndex]
+
+        println(result)
+    }
+
+    private fun String.isPalindrome(start: Int, end: Int): Boolean {
+        var i = start
+        var j = end
+        while (i < j) {
+            if (this[i] != this[j]) {
+                return false
+            }
+            i++
+            j--
+        }
+        return true
     }
 
     override fun printLongestCommonSubsequence(string1: String, string2: String) {
