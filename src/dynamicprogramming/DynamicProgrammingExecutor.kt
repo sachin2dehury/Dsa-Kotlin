@@ -42,5 +42,9 @@ object DynamicProgrammingExecutor : DynamicProgrammingProblems by DynamicProgram
         printLongestCommonSubsequence()
         printShortestCommonSuperSequence()
         rodCuttingProblem()
+
+        patternMatching()
+        shortestCommonSuperSequence()
+        unboundedKnapsack()
     }
 }

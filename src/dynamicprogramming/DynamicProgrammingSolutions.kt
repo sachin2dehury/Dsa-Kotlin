@@ -594,22 +594,106 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     }
 
     override fun patternMatching(string: String, pattern: String) {
-        TODO("Not yet implemented")
+        val cache = Array(string.length + 1) { Array(pattern.length + 1) { 0 } }
+
+        for (i in 0..string.length) {
+            for (j in 0..pattern.length) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (string[i - 1] == pattern[j - 1]) {
+                    cache[i][j] = 1 + cache[i - 1][j - 1]
+                } else {
+                    cache[i][j] = max(cache[i][j - 1], cache[i - 1][j])
+                }
+            }
+        }
+
+        val result = cache[string.length][pattern.length] == pattern.length
+
+        println(result)
     }
 
     override fun shortestCommonSuperSequence(string1: String, string2: String) {
-        TODO("Not yet implemented")
+        val cache = Array(string1.length + 1) { Array(string2.length + 1) { 0 } }
+
+        for (i in 0..string1.length) {
+            for (j in 0..string2.length) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (string1[i - 1] == string2[j - 1]) {
+                    cache[i][j] = 1 + cache[i - 1][j - 1]
+                } else {
+                    cache[i][j] = max(cache[i][j - 1], cache[i - 1][j])
+                }
+            }
+        }
+
+        val result = string1.length + string2.length - cache[string1.length][string2.length]
+
+        println(result)
     }
 
     override fun subsetSum(items: List<Int>, sum: Int) {
-        TODO("Not yet implemented")
+        val cache = Array(items.size + 1) { Array(sum + 1) { false } }
+
+        for (i in 0..items.size) {
+            for (j in 0..sum + 1) {
+                if (j == 0) {
+                    cache[i][j] = true
+                } else if (i == 0) {
+                    cache[i][j] = false
+                } else if (items[i - 1] > j) {
+                    cache[i][j] = cache[i - 1][j]
+                } else {
+                    cache[i][j] = cache[i - 1][j] || cache[i - 1][j - items[i - 1]]
+                }
+            }
+        }
+
+        val result = cache[items.size][sum]
+
+        println(result)
     }
 
     override fun targetSum(items: List<Int>, sum: Int) {
-        TODO("Not yet implemented")
+        val cache = Array(items.size + 1) { Array(sum + 1) { 0 } }
+
+        for (i in 0..items.size) {
+            for (j in 0..sum) {
+                if (j == 0) {
+                    cache[i][j] = 1
+                } else if (i == 0) {
+                    cache[i][j] = 0
+                } else if (items[i - 1] > j) {
+                    cache[i][j] = cache[i - 1][j]
+                } else {
+                    cache[i][j] = cache[i - 1][j] + cache[i - 1][j - items[i - 1]]
+                }
+            }
+        }
+
+        val result = cache[items.size][sum]
+
+        println(result)
     }
 
     override fun unboundedKnapsack(items: List<Pair<Int, Int>>, weight: Int) {
-        TODO("Not yet implemented")
+        val cache = Array(items.size + 1) { Array(weight + 1) { 0 } }
+
+        for (i in 0..items.size) {
+            for (j in 0..weight) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (items[i - 1].second > j) {
+                    cache[i][j] = cache[i - 1][j]
+                } else {
+                    cache[i][j] = max(cache[i - 1][j], items[i - 1].first + cache[i][j - items[i - 1].second])
+                }
+            }
+        }
+
+        val result = cache[items.size][weight]
+
+        println(result)
     }
 }
