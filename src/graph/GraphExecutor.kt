@@ -46,7 +46,7 @@ object GraphExecutor : GraphProblems by GraphSolutions() {
 
         detectCycleInUndirectionalGraph(undirectedGraph)
 
-//        detectCycleInDirectionalGraph(directedGraph)
+        detectCycleInDirectionalGraph(directedGraph)
 
         dijkstraAlgo(weightedGraph)
 

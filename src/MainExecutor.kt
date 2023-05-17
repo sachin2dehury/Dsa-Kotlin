@@ -1,4 +1,4 @@
-import dynamicprogramming.DynamicProgrammingExecutor
+import graph.GraphExecutor
 
 fun main() {
 //    StackExecutor()
@@ -7,9 +7,9 @@ fun main() {
 //    SlidingWindowExecutor()
 //    RecursionExecutor()
 //    DuplicateExecutor()
-//    GraphExecutor()
+    GraphExecutor()
 //    ArrayExecutor()
-    DynamicProgrammingExecutor()
+//    DynamicProgrammingExecutor()
 //    GreedyExecutor()
 
 }

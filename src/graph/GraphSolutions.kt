@@ -1,5 +1,6 @@
 package graph
 
+import java.util.ArrayDeque
 import java.util.PriorityQueue
 import java.util.Stack
 import kotlin.math.min
@@ -91,8 +92,50 @@ class GraphSolutions : GraphProblems {
         println(result)
     }
 
+    //                Graph.Edge(0, 1),
+    //                Graph.Edge(0, 2),
+    //                Graph.Edge(1, 2),
+    //                Graph.Edge(2, 0),
+    //                Graph.Edge(2, 3),
+    //                Graph.Edge(3, 3)
     override fun detectCycleInDirectionalGraph(graph: Graph) {
-        TODO("Not yet implemented")
+        val queue = ArrayDeque<Int>()
+        val visited = Array(graph.totalNodes) { false to false }
+        var result = false
+
+        for (i in 0 until graph.totalNodes) {
+            if (!visited[i].first) {
+                queue.add(i)
+                visited[i] = true to visited[i].second
+            }
+
+            while (queue.isNotEmpty() && !result) {
+                val current = queue.removeFirst()
+                for (edge in graph.edges) {
+                    if (edge.start == current) {
+                        if (edge.start < edge.destination) {
+                            if (!visited[edge.destination].first) {
+                                queue.add(edge.destination)
+                                visited[edge.destination] = visited[edge.destination].copy(first = true)
+                            }
+                        } else {
+                            if (!visited[edge.destination].second) {
+                                queue.add(edge.destination)
+                                visited[edge.destination] = visited[edge.destination].copy(second = true)
+                            }
+                        }
+
+                        if (visited[edge.destination].first && visited[edge.destination].second) {
+                            result = true
+                            println(result)
+                            return
+                        }
+                    }
+                }
+            }
+        }
+
+        println(result)
     }
 
     override fun dijkstraAlgo(graph: Graph, startIndex: Int) {
@@ -145,6 +188,7 @@ class GraphSolutions : GraphProblems {
             }
         }
 
+        println(result.sumOf { it.cost })
         println(result)
     }
 
