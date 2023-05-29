@@ -27,8 +27,18 @@ class RecursionSolutions : RecursionProblems {
     }
 
     override fun josephusProblem(n: Int, k: Int): Int {
-        if (n == 1) return 1
-        return josephusProblem(n - 1, k - 1) % n + 1
+        val list = (1..n).toMutableList()
+
+        var index = 0
+        while (list.size > 1) {
+            index = (index + k) % list.size
+            list.removeAt(index)
+        }
+
+        return list.first()
+//        recursion ans
+//        if (n == 1) return 1
+//        return josephusProblem(n - 1, k - 1) % n + 1
     }
 
     override fun kthElementInGrammar(n: Int, k: Int): Int {

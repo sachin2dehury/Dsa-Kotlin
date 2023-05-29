@@ -79,8 +79,8 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
                 } else if (i <= 1 || j == 1) {
                     cache[i][j] = 1
                 } else {
-                    for (k in 0 until i) {
-                        val drops = max(cache[k][j - 1], cache[i - (k + 1)][j]) + 1
+                    for (k in 1..i) {
+                        val drops = max(cache[k - 1][j - 1], cache[i - k][j]) + 1
                         cache[i][j] = min(cache[i][j], drops)
                     }
                 }

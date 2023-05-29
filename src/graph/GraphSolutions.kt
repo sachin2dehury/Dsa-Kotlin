@@ -17,8 +17,7 @@ class GraphSolutions : GraphProblems {
                 visitedSet.add(i)
 
                 while (queue.isNotEmpty()) {
-                    val currentIndex = queue.removeFirst()
-                    result.add(currentIndex)
+                    val currentIndex = queue.first()
 
                     for (edge in graph.edges) {
                         if (edge.start == currentIndex && !visitedSet.contains(edge.destination)) {
@@ -26,6 +25,9 @@ class GraphSolutions : GraphProblems {
                             queue.add(edge.destination)
                         }
                     }
+
+                    queue.removeFirst()
+                    result.add(currentIndex)
                 }
             }
         }
@@ -44,19 +46,22 @@ class GraphSolutions : GraphProblems {
                 stack.push(i)
 
                 while (stack.isNotEmpty()) {
-                    val currentIndex = stack.pop()
-                    if (currentIndex != i) {
-                        result.add(currentIndex)
-                    }
+                    val currentIndex = stack.peek()
+                    visitedSet.add(currentIndex)
+
+                    var allAdjacentVisited = true
                     for (edge in graph.edges) {
                         if (edge.start == currentIndex && !visitedSet.contains(edge.destination)) {
-                            visitedSet.add(edge.destination)
                             stack.push(edge.destination)
+                            allAdjacentVisited = false
                         }
                     }
+
+                    if (allAdjacentVisited) {
+                        stack.pop()
+                        result.add(currentIndex)
+                    }
                 }
-                visitedSet.add(i)
-                result.add(i)
             }
         }
 
@@ -70,22 +75,27 @@ class GraphSolutions : GraphProblems {
         var result = false
 
         stack.push(0)
-        visitedSet.add(0)
 
         while (stack.isNotEmpty() && !result) {
-            val currentIndex = stack.pop()
+            val currentIndex = stack.peek()
+            visitedSet.add(currentIndex)
 
+            var allAdjacentVisited = true
             for (edge in graph.edges) {
                 if (edge.start == currentIndex) {
 
                     if (!visitedSet.contains(edge.destination)) {
-                        visitedSet.add(edge.destination)
+                        allAdjacentVisited = false
                         stack.push(edge.destination)
                     } else {
                         result = true
                         break
                     }
                 }
+            }
+
+            if (allAdjacentVisited) {
+                stack.pop()
             }
         }
 
@@ -127,8 +137,7 @@ class GraphSolutions : GraphProblems {
 
                         if (visited[edge.destination].first && visited[edge.destination].second) {
                             result = true
-                            println(result)
-                            return
+                            break
                         }
                     }
                 }
@@ -140,27 +149,27 @@ class GraphSolutions : GraphProblems {
 
     override fun dijkstraAlgo(graph: Graph, startIndex: Int) {
         val minHeap = PriorityQueue<Pair<Int, Int>> { a, b -> a.second - b.second }
-        val alreadyMinimised = mutableSetOf<Int>()
+        val visitedSet = mutableSetOf<Int>()
         val cost = Array(graph.totalNodes) { Int.MAX_VALUE }
 
         cost[startIndex] = 0
         minHeap.add(startIndex to cost[startIndex])
 
-        while (minHeap.isNotEmpty()) {
+        while (minHeap.isNotEmpty() && visitedSet.size < graph.totalNodes) {
             val current = minHeap.poll()
             val currentIndex = current.first
             val currentCost = current.second
 
+            visitedSet.add(currentIndex)
+
             for (edge in graph.edges) {
-                if (edge.start == currentIndex && !alreadyMinimised.contains(edge.destination)) {
+                if (edge.start == currentIndex && !visitedSet.contains(edge.destination)) {
                     if (cost[edge.destination] > currentCost + edge.cost) {
                         cost[edge.destination] = currentCost + edge.cost
                         minHeap.add(edge.destination to cost[edge.destination])
                     }
                 }
             }
-
-            alreadyMinimised.add(currentIndex)
         }
 
         println(cost.toList())
@@ -178,7 +187,7 @@ class GraphSolutions : GraphProblems {
 
         minHeap.addAll(graph.edges)
 
-        while (minHeap.isNotEmpty()) {
+        while (minHeap.isNotEmpty() && result.size < graph.totalNodes) {
             val currentEdge = minHeap.poll()
             val start = currentEdge.start
             val destination = currentEdge.destination
@@ -216,16 +225,12 @@ class GraphSolutions : GraphProblems {
         for (i in 0..graph.totalNodes) {
             for (edge in graph.edges) {
 
-                if (cost[edge.start] < Int.MAX_VALUE) {
-
-                    if (cost[edge.destination] > cost[edge.start] + edge.cost) {
-                        cost[edge.destination] = cost[edge.start] + edge.cost
-
-                        if (i == graph.totalNodes) {
-                            println("Negative Cycle is Present")
-                            return
-                        }
+                if (cost[edge.start] < Int.MAX_VALUE && cost[edge.destination] > cost[edge.start] + edge.cost) {
+                    if (i == graph.totalNodes) {
+                        println("Negative Cycle is Present")
+                        break
                     }
+                    cost[edge.destination] = cost[edge.start] + edge.cost
                 }
             }
         }
@@ -270,21 +275,22 @@ class GraphSolutions : GraphProblems {
                 stack.push(i)
 
                 while (stack.isNotEmpty()) {
-                    val currentIndex = stack.pop()
-                    if (currentIndex != i) {
-                        result.add(currentIndex)
-                    }
+                    val currentIndex = stack.peek()
+                    visitedSet.add(currentIndex)
 
+                    var allAdjacentVisited = true
                     for (edge in graph.edges) {
                         if (edge.start == currentIndex && !visitedSet.contains(edge.destination)) {
-                            visitedSet.add(edge.destination)
                             stack.push(edge.destination)
+                            allAdjacentVisited = false
                         }
                     }
-                }
 
-                visitedSet.add(i)
-                result.add(i)
+                    if (allAdjacentVisited) {
+                        stack.pop()
+                        result.add(currentIndex)
+                    }
+                }
             }
         }
 
@@ -304,12 +310,12 @@ class GraphSolutions : GraphProblems {
             for (j in 0 until totalNodes) {
                 if (graph[i][j] == 1 && !visitedSet.contains(i to j)) {
                     queue.add(i to j)
-                    visitedSet.add(i to j)
                     count++
                 }
 
                 while (queue.isNotEmpty()) {
-                    val currentPosition = queue.removeFirst()
+                    val currentPosition = queue.first()
+                    visitedSet.add(currentPosition)
 
                     allowedPaths.forEach {
                         val x = currentPosition.first + it.first
@@ -322,6 +328,8 @@ class GraphSolutions : GraphProblems {
                             visitedSet.add(x to y)
                         }
                     }
+
+                    queue.removeFirst()
                 }
             }
         }
