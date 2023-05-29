@@ -61,5 +61,8 @@ object BinarySearchExecutor : BinarySearchProblems by BinarySearchSolutions() {
 
         print("binarySearchInMatrix : ")
         binarySearchInMatrix()
+
+        print("allocateNumberOfPages : ")
+        allocateNumberOfPages()
     }
 }

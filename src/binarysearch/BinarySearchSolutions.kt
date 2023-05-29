@@ -1,5 +1,7 @@
 package binarysearch
 
+import kotlin.math.min
+
 class BinarySearchSolutions : BinarySearchProblems {
     override fun binarySearch(items: List<Int>, item: Int) {
         var start = 0
@@ -488,7 +490,38 @@ class BinarySearchSolutions : BinarySearchProblems {
         println(result)
     }
 
-    override fun minimizeNumberOfPages() {
-        TODO("Not yet implemented")
+    override fun allocateNumberOfPages(items: List<Int>, k: Int) {
+        if (items.size < k) {
+            println("Not Possible")
+            return
+        }
+
+        var end = items.sum()
+        var start = items.last()
+        var result = Int.MAX_VALUE
+
+        while (end >= start) {
+            val mid = end - (end - start) / 2
+            var sum = 0
+            var count = 1
+
+            for (i in items.indices) {
+                if (sum > mid) {
+                    sum = items[i]
+                    count++
+                } else {
+                    sum += items[i]
+                }
+            }
+
+            if (count > k) {
+                start = mid + 1
+            } else {
+                end = mid - 1
+                result = min(mid, result)
+            }
+        }
+
+        println(result)
     }
 }

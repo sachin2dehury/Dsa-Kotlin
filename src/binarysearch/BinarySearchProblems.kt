@@ -96,5 +96,5 @@ interface BinarySearchProblems {
         item: Int = 29,
     )
 
-    fun minimizeNumberOfPages()
+    fun allocateNumberOfPages(items: List<Int> = listOf(10, 20, 30, 40), k: Int = 2)
 }
