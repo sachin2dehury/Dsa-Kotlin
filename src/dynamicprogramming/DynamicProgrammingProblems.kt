@@ -33,7 +33,7 @@ interface DynamicProgrammingProblems {
 
     fun maximumPathSumOfBinaryTree(node: Node?)
 
-    fun maximumPathSumOfBinaryTreeLeafToLeafNode()
+    fun maximumPathSumOfBinaryTreeLeafToLeafNode(node: Node?)
 
     fun minimumDifferenceOfSum(items: List<Int> = listOf(3, 1, 4, 2, 2, 1))
 

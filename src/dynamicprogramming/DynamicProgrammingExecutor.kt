@@ -30,6 +30,7 @@ object DynamicProgrammingExecutor : DynamicProgrammingProblems by DynamicProgram
         maximumNumberOfWaysToChangeCoins()
 
         maximumPathSumOfBinaryTree(root)
+        maximumPathSumOfBinaryTreeLeafToLeafNode(root)
 
         minimumNumberOfDeletionForPalindrome()
         minimumDifferenceOfSum()
