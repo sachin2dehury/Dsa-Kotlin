@@ -14,11 +14,11 @@ interface BinaryTreeProblems {
 
     fun isSameBinaryTree(node1: Node?, node2: Node?): Boolean
 
-    fun sizeOfBinaryTree(node: Node?)
+    fun sizeOfBinaryTree(node: Node?): Int
 
     fun heightOfBinaryTree(node: Node?): Int
 
-    fun isBinarySearchTree(node: Node?)
+    fun isBinarySearchTree(node: Node?): Boolean
 
     fun reverseLevelOrderTraversal(node: Node?)
 

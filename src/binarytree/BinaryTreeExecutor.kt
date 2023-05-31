@@ -21,5 +21,12 @@ object BinaryTreeExecutor : BinaryTreeProblems by BinaryTreeSolutions() {
         println(binaryTreeSearch(root, 3))
         println(isSameBinaryTree(null, null))
         println(heightOfBinaryTree(root))
+        println(sizeOfBinaryTree(root))
+
+        reverseLevelOrderTraversal(root)
+        println()
+        spiralOrderTraversal(root)
+        println()
+        println(isBinarySearchTree(root))
     }
 }

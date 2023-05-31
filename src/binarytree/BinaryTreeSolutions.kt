@@ -1,5 +1,6 @@
 package binarytree
 
+import java.util.Stack
 import kotlin.math.max
 
 class BinaryTreeSolutions : BinaryTreeProblems {
@@ -68,8 +69,11 @@ class BinaryTreeSolutions : BinaryTreeProblems {
         }
     }
 
-    override fun sizeOfBinaryTree(node: Node?) {
-        TODO("Not yet implemented")
+    override fun sizeOfBinaryTree(node: Node?): Int {
+        if (node == null) return 0
+        val right = sizeOfBinaryTree(node.right)
+        val left = sizeOfBinaryTree(node.left)
+        return 1 + right + left
     }
 
     override fun heightOfBinaryTree(node: Node?): Int {
@@ -79,16 +83,78 @@ class BinaryTreeSolutions : BinaryTreeProblems {
         return 1 + max(left, right)
     }
 
-    override fun isBinarySearchTree(node: Node?) {
-        TODO("Not yet implemented")
+    override fun isBinarySearchTree(node: Node?): Boolean {
+        if (node == null) return true
+
+        val left = isBinarySearchTree(node.left)
+        val right = isBinarySearchTree(node.right)
+
+        var result = true
+
+        if (node.left != null) {
+            result = result && (node.data > node.left!!.data)
+        }
+
+        if (node.right != null) {
+            result = result && (node.data < node.right!!.data)
+        }
+        return result && left && right
     }
 
     override fun reverseLevelOrderTraversal(node: Node?) {
-        TODO("Not yet implemented")
+        if (node == null) return
+        val queue = ArrayDeque<Node>()
+        queue.add(node)
+
+        val stack = Stack<Int>()
+
+        while (queue.isNotEmpty()) {
+            val current = queue.removeFirst()
+            stack.push(current.data)
+
+            current.right?.let {
+                queue.add(it)
+            }
+            current.left?.let {
+                queue.add(it)
+            }
+
+        }
+
+        while (stack.isNotEmpty()) {
+            print("${stack.pop()} ")
+        }
     }
 
     override fun spiralOrderTraversal(node: Node?) {
-        TODO("Not yet implemented")
+        if (node == null) return
+
+        val queue = ArrayDeque<Pair<Node, Boolean>>()
+        queue.add(node to false)
+
+        while (queue.isNotEmpty()) {
+            val current = queue.removeFirst()
+            val currentNode = current.first
+            val direction = current.second
+
+            print("${currentNode.data} ")
+
+            if (direction) {
+                currentNode.left?.let {
+                    queue.add(it to false)
+                }
+                currentNode.right?.let {
+                    queue.add(it to false)
+                }
+            } else {
+                currentNode.right?.let {
+                    queue.add(it to true)
+                }
+                currentNode.left?.let {
+                    queue.add(it to true)
+                }
+            }
+        }
     }
 
     override fun lowestCommonAncestorBinarySearchTree(node: Node?) {
