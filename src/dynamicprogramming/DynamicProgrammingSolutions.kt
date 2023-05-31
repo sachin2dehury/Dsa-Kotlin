@@ -309,14 +309,22 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
 
     private fun maximumPathSumOfBinaryTreeLeafNodeToLeafNodeInternal(node: Node?): Int {
         if (node == null) return 0
+
         val rightSum = maximumPathSumOfBinaryTreeLeafNodeToLeafNodeInternal(node.right)
         val leftSum = maximumPathSumOfBinaryTreeLeafNodeToLeafNodeInternal(node.left)
 
-        val sumViaCurrent = leftSum + rightSum + node.data
-
-        maximumPathSumOfBinaryTreeLeafNodeToLeafNode = max(maximumPathSumOfBinaryTreeLeafNodeToLeafNode, sumViaCurrent)
-
-        return node.data + max(leftSum, rightSum)
+        return if (node.left == null && node.right == null) {
+            node.data
+        } else if (node.left == null) {
+            node.data + rightSum
+        } else if (node.right == null) {
+            node.data + leftSum
+        } else {
+            val sumViaCurrent = leftSum + rightSum + node.data
+            maximumPathSumOfBinaryTreeLeafNodeToLeafNode =
+                max(maximumPathSumOfBinaryTreeLeafNodeToLeafNode, sumViaCurrent)
+            node.data + max(leftSum, rightSum)
+        }
     }
 
     private fun maximumPathSumOfBinaryTreeInternal(node: Node?): Int {
@@ -325,14 +333,9 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
         val left = maximumPathSumOfBinaryTreeInternal(node.left)
 
         val pathSumViaCurrent = node.data + left + right
-        val oneSideSum = max(left, right) + node.data
-        val currentIsEndNode = node.data
+        maximumPathSumOfBinaryTreeResult = max(maximumPathSumOfBinaryTreeResult, pathSumViaCurrent)
 
-        val tempAns = max(pathSumViaCurrent, max(oneSideSum, currentIsEndNode))
-
-        maximumPathSumOfBinaryTreeResult = max(maximumPathSumOfBinaryTreeResult, tempAns)
-
-        return max(oneSideSum, currentIsEndNode)
+        return node.data + max(left, right)
     }
 
     override fun minimumDifferenceOfSum(items: List<Int>) {
