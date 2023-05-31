@@ -1,3 +1,5 @@
+import binarytree.BinaryTreeExecutor
+
 fun main() {
 //    StackExecutor()
 //    HeapExecutor()
@@ -9,4 +11,5 @@ fun main() {
 //    ArrayExecutor()
 //    DynamicProgrammingExecutor()
 //    GreedyExecutor()
+    BinaryTreeExecutor()
 }
