@@ -1,4 +1,4 @@
-import binarytree.BinaryTreeExecutor
+import linkedlist.LinkedListExecutor
 
 fun main() {
 //    StackExecutor()
@@ -11,5 +11,6 @@ fun main() {
 //    ArrayExecutor()
 //    DynamicProgrammingExecutor()
 //    GreedyExecutor()
-    BinaryTreeExecutor()
+//    BinaryTreeExecutor()
+    LinkedListExecutor()
 }
