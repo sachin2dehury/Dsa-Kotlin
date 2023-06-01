@@ -28,5 +28,8 @@ object BinaryTreeExecutor : BinaryTreeProblems by BinaryTreeSolutions() {
         spiralOrderTraversal(root)
         println()
         println(isBinarySearchTree(root))
+
+        iterativePreorder(root)
+        iterativeInorder(root)
     }
 }

@@ -25,4 +25,10 @@ interface BinaryTreeProblems {
     fun spiralOrderTraversal(node: Node?)
 
     fun lowestCommonAncestorBinarySearchTree(node: Node?)
+
+    fun iterativePreorder(node: Node?)
+
+    fun iterativeInorder(node: Node?)
+
+    fun iterativePostorder(node: Node?)
 }

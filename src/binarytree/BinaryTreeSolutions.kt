@@ -160,4 +160,46 @@ class BinaryTreeSolutions : BinaryTreeProblems {
     override fun lowestCommonAncestorBinarySearchTree(node: Node?) {
         TODO("Not yet implemented")
     }
+
+    override fun iterativePreorder(node: Node?) {
+        if (node == null) return
+
+        var root = node
+        val stack = Stack<Node>()
+
+        println()
+        while (stack.isNotEmpty() || root != null) {
+            if (root != null) {
+                stack.push(root)
+                print("${root.data} ")
+                root = root.left
+            } else {
+                val current = stack.pop()
+                root = current.right
+            }
+        }
+    }
+
+    override fun iterativeInorder(node: Node?) {
+        if (node == null) return
+
+        var root = node
+        val stack = Stack<Node>()
+
+        println()
+        while (stack.isNotEmpty() || root != null) {
+            if (root != null) {
+                stack.push(root)
+                root = root.left
+            } else {
+                val current = stack.pop()
+                print("${current.data} ")
+                root = current.right
+            }
+        }
+    }
+
+    override fun iterativePostorder(node: Node?) {
+        TODO("Not yet implemented")
+    }
 }
