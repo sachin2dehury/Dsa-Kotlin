@@ -718,4 +718,48 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
 
         println(result)
     }
+
+    override fun minimumEditDistance(string1: String, string2: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun longestIncreasingSubsequence(items: List<Int>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun regularExpressionMatch(pattern: String, string: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun maximumSumRectangularMatrix(items: List<List<Int>>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun wordBreakProblem(dictionary: Set<String>, string: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun countWaysToReachNthStair(n: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun boxStackingProblem(boxes: List<Box>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun interleaveString(string1: String, string2: String, string3: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun totalNumberOfPathsInMatrix(n: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun numbersWithoutConsecutive1(n: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun longestBitonicSubsequence(items: List<Int>) {
+        TODO("Not yet implemented")
+    }
 }

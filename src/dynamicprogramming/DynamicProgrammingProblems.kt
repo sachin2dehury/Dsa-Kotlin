@@ -65,4 +65,25 @@ interface DynamicProgrammingProblems {
 
     fun unboundedKnapsack(items: List<Pair<Int, Int>> = listOf(10 to 5, 30 to 10, 20 to 15), weight: Int = 100)
 
+    fun minimumEditDistance(string1: String, string2: String)
+
+    fun longestIncreasingSubsequence(items: List<Int>)
+
+    fun regularExpressionMatch(pattern: String, string: String)
+
+    fun maximumSumRectangularMatrix(items: List<List<Int>>)
+
+    fun wordBreakProblem(dictionary: Set<String>, string: String)
+
+    fun countWaysToReachNthStair(n: Int)
+
+    fun boxStackingProblem(boxes: List<Box>)
+
+    fun interleaveString(string1: String, string2: String, string3: String)
+
+    fun totalNumberOfPathsInMatrix(n: Int)
+
+    fun numbersWithoutConsecutive1(n: Int)
+
+    fun longestBitonicSubsequence(items: List<Int>)
 }
