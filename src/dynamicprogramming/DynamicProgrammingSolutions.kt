@@ -824,8 +824,8 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
 
         val match1 = cache1[string1.length][string3.length] == string1.length
         val match2 = cache2[string2.length][string3.length] == string2.length
-
-        val result = match1 && match2
+        val lengthMatch = (string1.length + string2.length) == string3.length
+        val result = match1 && match2 && lengthMatch
 
         println(result)
     }
