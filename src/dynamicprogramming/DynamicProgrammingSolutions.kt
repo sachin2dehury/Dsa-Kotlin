@@ -1,5 +1,6 @@
 package dynamicprogramming
 
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
@@ -720,7 +721,26 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     }
 
     override fun minimumEditDistance(string1: String, string2: String) {
-        TODO("Not yet implemented")
+        val cache = Array(string1.length + 1) { Array(string2.length + 1) { 0 } }
+
+        for (i in 0..string1.length) {
+            for (j in 0..string2.length) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (string1[i - 1] == string2[j - 1]) {
+                    cache[i][j] = 1 + cache[i - 1][j - 1]
+                } else {
+                    cache[i][j] = max(cache[i][j - 1], cache[i - 1][j])
+                }
+            }
+        }
+
+        val insertOrDelete = abs(string1.length - string2.length)
+        val replace = string1.length - cache[string1.length][string2.length]
+
+        val result = insertOrDelete + replace
+
+        println(result)
     }
 
     override fun longestIncreasingSubsequence(items: List<Int>) {
@@ -728,7 +748,23 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     }
 
     override fun regularExpressionMatch(pattern: String, string: String) {
-        TODO("Not yet implemented")
+        val cache = Array(pattern.length + 1) { Array(string.length + 1) { 0 } }
+
+        for (i in 0..pattern.length) {
+            for (j in 0..string.length) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 0
+                } else if (pattern[i - 1] == string[j - 1] || pattern[i - 1] == '?') {
+                    cache[i][j] = 1 + cache[i - 1][j - 1]
+                } else if (pattern[i - 1] == '*') {
+                    cache[i][j] = max(1 + cache[i - 1][j - 1], max(cache[i - 1][j], cache[i][j - 1]))
+                } else {
+                    cache[i][j] = max(cache[i - 1][j], cache[i][j - 1])
+                }
+            }
+        }
+
+        println(cache[pattern.length][string.length] == string.length)
     }
 
     override fun maximumSumRectangularMatrix(items: List<List<Int>>) {
@@ -740,7 +776,18 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     }
 
     override fun countWaysToReachNthStair(n: Int) {
-        TODO("Not yet implemented")
+        val cache = Array(n + 1) { 0 }
+
+        for (i in 1..n) {
+            if (i <= 2) {
+                cache[i] = i
+            } else {
+                cache[i] = cache[i - 1] + cache[i - 2]
+            }
+        }
+
+        val result = cache[n]
+        println(result)
     }
 
     override fun boxStackingProblem(boxes: List<Box>) {
@@ -748,7 +795,39 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     }
 
     override fun interleaveString(string1: String, string2: String, string3: String) {
-        TODO("Not yet implemented")
+        val cache1 = Array(string1.length + 1) { Array(string3.length + 1) { 0 } }
+        val cache2 = Array(string2.length + 1) { Array(string3.length + 1) { 0 } }
+
+        for (i in 0..string1.length) {
+            for (j in 0..string3.length) {
+                if (i == 0 || j == 0) {
+                    cache1[i][j] = 0
+                } else if (string1[i - 1] == string3[j - 1]) {
+                    cache1[i][j] = cache1[i - 1][j - 1] + 1
+                } else {
+                    cache1[i][j] = max(cache1[i - 1][j], cache1[i][j - 1])
+                }
+            }
+        }
+
+        for (i in 0..string2.length) {
+            for (j in 0..string3.length) {
+                if (i == 0 || j == 0) {
+                    cache2[i][j] = 0
+                } else if (string1[i - 1] == string3[j - 1]) {
+                    cache2[i][j] = cache2[i - 1][j - 1] + 1
+                } else {
+                    cache2[i][j] = max(cache2[i - 1][j], cache2[i][j - 1])
+                }
+            }
+        }
+
+        val match1 = cache1[string1.length][string3.length] == string1.length
+        val match2 = cache2[string2.length][string3.length] == string2.length
+
+        val result = match1 && match2
+
+        println(result)
     }
 
     override fun totalNumberOfPathsInMatrix(n: Int) {

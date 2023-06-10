@@ -47,5 +47,10 @@ object DynamicProgrammingExecutor : DynamicProgrammingProblems by DynamicProgram
         patternMatching()
         shortestCommonSuperSequence()
         unboundedKnapsack()
+
+        minimumEditDistance()
+        regularExpressionMatch()
+        countWaysToReachNthStair()
+        interleaveString()
     }
 }
