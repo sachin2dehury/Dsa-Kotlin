@@ -772,7 +772,26 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     }
 
     override fun wordBreakProblem(dictionary: Set<String>, string: String) {
-        TODO("Not yet implemented")
+        val cache = Array(string.length + 1) { Array(string.length + 1) { false } }
+
+        for (l in 0..string.length) {
+            for (i in 0..string.length - l) {
+                val j = i + l
+                val substring = string.substring(i, j)
+                if (dictionary.contains(substring)) {
+                    cache[i][j] = true
+                } else {
+                    for (k in i until j) {
+                        val temp = cache[i][k] && cache[k][j]
+                        cache[i][j] = cache[i][j] || temp
+                    }
+                }
+            }
+        }
+
+        val result = cache[0][string.length]
+
+        println(result)
     }
 
     override fun countWaysToReachNthStair(n: Int) {
@@ -830,8 +849,22 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
         println(result)
     }
 
-    override fun totalNumberOfPathsInMatrix(n: Int) {
-        TODO("Not yet implemented")
+    override fun totalNumberOfPathsInMatrix(m: Int, n: Int) {
+        val cache = Array(m) { Array(n) { 0 } }
+
+        for (i in 0 until m) {
+            for (j in 0 until n) {
+                if (i == 0 || j == 0) {
+                    cache[i][j] = 1
+                } else {
+                    cache[i][j] = cache[i - 1][j] + cache[i][j - 1]
+                }
+            }
+        }
+
+        val result = cache[m - 1][n - 1]
+
+        println(result)
     }
 
     override fun numbersWithoutConsecutive1(n: Int) {

@@ -52,5 +52,7 @@ object DynamicProgrammingExecutor : DynamicProgrammingProblems by DynamicProgram
         regularExpressionMatch()
         countWaysToReachNthStair()
         interleaveString()
+        wordBreakProblem()
+        totalNumberOfPathsInMatrix()
     }
 }

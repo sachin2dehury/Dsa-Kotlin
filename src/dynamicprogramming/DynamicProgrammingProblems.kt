@@ -73,7 +73,13 @@ interface DynamicProgrammingProblems {
 
     fun maximumSumRectangularMatrix(items: List<List<Int>>)
 
-    fun wordBreakProblem(dictionary: Set<String>, string: String)
+    fun wordBreakProblem(
+        dictionary: Set<String> = setOf(
+            "mobile", "samsung", "sam", "sung",
+            "man", "mango", "icecream", "and",
+            "go", "i", "like", "ice", "cream"
+        ), string: String = "ilikesamsung"
+    )
 
     fun countWaysToReachNthStair(n: Int = 4)
 
@@ -81,7 +87,7 @@ interface DynamicProgrammingProblems {
 
     fun interleaveString(string1: String = "YX", string2: String = "X", string3: String = "XXY")
 
-    fun totalNumberOfPathsInMatrix(n: Int)
+    fun totalNumberOfPathsInMatrix(m: Int = 2, n: Int = 3)
 
     fun numbersWithoutConsecutive1(n: Int)
 
