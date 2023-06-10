@@ -1,14 +1,14 @@
 package linkedlist
 
-object LinkedListExecutor : LinkedListProblems by LinkedListSolutions() {
+object DoublyLinkedListExecutor : LinkedListProblems by DoublyLinkedListSolutions() {
 
     operator fun invoke() {
         var head: Node? = Node(1)
 
-        var currentNode: Node? = head
+        var currentNode = head
 
         (2..8).forEach {
-            currentNode?.next = Node(it)
+            currentNode?.next = Node(it, prev = currentNode)
             currentNode = currentNode?.next
         }
 
@@ -17,12 +17,17 @@ object LinkedListExecutor : LinkedListProblems by LinkedListSolutions() {
         head = deleteNode(head, 1)
 
         currentNode?.next = head
+        head?.prev = currentNode
+
         detectCycle(head)
 
         currentNode?.next = null
-        middleElement(head)
+        head?.prev = null
+
+        head = reverseLinkedList(head)
 
         head = insertAt(head, 9, 3)
-        head = reverseLinkedList(head)
+
+        middleElement(head)
     }
 }

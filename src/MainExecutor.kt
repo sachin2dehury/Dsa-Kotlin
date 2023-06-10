@@ -1,4 +1,4 @@
-import linkedlist.LinkedListExecutor
+import linkedlist.DoublyLinkedListExecutor
 
 fun main() {
 //    StackExecutor()
@@ -12,5 +12,6 @@ fun main() {
 //    DynamicProgrammingExecutor()
 //    GreedyExecutor()
 //    BinaryTreeExecutor()
-    LinkedListExecutor()
+//    LinkedListExecutor()
+    DoublyLinkedListExecutor()
 }

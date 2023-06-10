@@ -2,9 +2,9 @@ package linkedlist
 
 interface LinkedListProblems {
 
-    fun deleteNode(node: Node?, data: Int)
+    fun deleteNode(node: Node?, data: Int): Node?
 
-    fun reverseLinkedList(node: Node?)
+    fun reverseLinkedList(node: Node?): Node?
 
     fun detectCycle(node: Node?)
 
@@ -12,5 +12,7 @@ interface LinkedListProblems {
 
     fun nthFromEnd(node: Node?)
 
-    fun insertAt(node: Node?, data: Int, position: Int)
+    fun insertAt(node: Node?, data: Int, position: Int): Node?
+
+    fun printLinkedList(node: Node?)
 }
