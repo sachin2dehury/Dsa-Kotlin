@@ -57,5 +57,6 @@ object DynamicProgrammingExecutor : DynamicProgrammingProblems by DynamicProgram
         numbersWithoutConsecutive1()
         longestIncreasingSubsequence()
         longestBitonicSubsequence()
+        boxStackingProblem()
     }
 }

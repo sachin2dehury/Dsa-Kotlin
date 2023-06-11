@@ -1,5 +1,6 @@
 package dynamicprogramming
 
+import java.util.PriorityQueue
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -823,7 +824,26 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     }
 
     override fun boxStackingProblem(boxes: List<Box>) {
-        TODO("Not yet implemented")
+        val maxHeap = PriorityQueue<Box> { a, b -> b.l * b.b - a.l * a.b }
+        val boxStack = mutableListOf<Box>()
+
+        boxes.forEach {
+            maxHeap.add(it)
+            maxHeap.add(Box(it.b, it.h, it.l))
+            maxHeap.add(Box(it.h, it.l, it.b))
+        }
+
+        boxStack.add(maxHeap.poll())
+        while (maxHeap.isNotEmpty()) {
+            val prev = boxStack.last()
+            val newBox = maxHeap.poll()
+            if (newBox.b < prev.b && newBox.l < prev.l) {
+                boxStack.add(newBox)
+            }
+        }
+
+        val result = boxStack.sumOf { it.h }
+        println(result)
     }
 
     override fun interleaveString(string1: String, string2: String, string3: String) {

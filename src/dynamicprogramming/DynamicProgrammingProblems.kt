@@ -83,7 +83,14 @@ interface DynamicProgrammingProblems {
 
     fun countWaysToReachNthStair(n: Int = 4)
 
-    fun boxStackingProblem(boxes: List<Box>)
+    fun boxStackingProblem(
+        boxes: List<Box> = listOf(
+            Box(4, 6, 7),
+            Box(1, 2, 3),
+            Box(4, 5, 6),
+            Box(10, 12, 32)
+        )
+    )
 
     fun interleaveString(string1: String = "YX", string2: String = "X", string3: String = "XXY")
 
