@@ -67,7 +67,7 @@ interface DynamicProgrammingProblems {
 
     fun minimumEditDistance(string1: String = "sunday", string2: String = "saturday")
 
-    fun longestIncreasingSubsequence(items: List<Int> = listOf(3, 10, 2, 1, 20))
+    fun longestIncreasingSubsequence(items: List<Int> = listOf(3, 4, -1, 0, 6, 2, 3))
 
     fun regularExpressionMatch(pattern: String = "ba*a?", string: String = "baaabab")
 
@@ -89,7 +89,7 @@ interface DynamicProgrammingProblems {
 
     fun totalNumberOfPathsInMatrix(m: Int = 2, n: Int = 3)
 
-    fun numbersWithoutConsecutive1(n: Int)
+    fun numbersWithoutConsecutive1(n: Int = 4)
 
-    fun longestBitonicSubsequence(items: List<Int>)
+    fun longestBitonicSubsequence(items: List<Int> = listOf(1, 11, 2, 10, 4, 5, 2, 1))
 }

@@ -744,7 +744,20 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     }
 
     override fun longestIncreasingSubsequence(items: List<Int>) {
-        TODO("Not yet implemented")
+        val cache = Array(items.size) { 1 }
+
+        for (i in 1..items.lastIndex) {
+            var j = i - 1
+            while (j >= 0 && items[j] > items[i]) {
+                j--
+            }
+            if (j >= 0) {
+                cache[i] = cache[j] + 1
+            }
+        }
+
+        val result = cache[items.lastIndex]
+        println(result)
     }
 
     override fun regularExpressionMatch(pattern: String, string: String) {
@@ -868,10 +881,50 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     }
 
     override fun numbersWithoutConsecutive1(n: Int) {
-        TODO("Not yet implemented")
+        val cache = Array(n + 1) { 0 }
+
+        for (i in 0..n) {
+            if (i <= 2) {
+                cache[i] = i + 1
+            } else {
+                cache[i] = cache[i - 1] + cache[i - 2]
+            }
+        }
+
+        val result = cache[n]
+        println(result)
     }
 
     override fun longestBitonicSubsequence(items: List<Int>) {
-        TODO("Not yet implemented")
+        val increasingCache = Array(items.size) { 1 }
+        val decreasingCache = Array(items.size) { 1 }
+
+        for (i in 1..items.lastIndex) {
+            var j = i - 1
+            while (j >= 0 && items[j] > items[i]) {
+                j--
+            }
+            if (j >= 0) {
+                increasingCache[i] = increasingCache[j] + 1
+            }
+        }
+
+        for (i in items.lastIndex - 1 downTo 0) {
+            var j = i + 1
+            while (j <= items.lastIndex && items[j] > items[i]) {
+                j++
+            }
+            if (j < items.size) {
+                decreasingCache[i] = decreasingCache[j] + 1
+            }
+        }
+
+        var result = 0
+
+        for (i in items.indices) {
+            result = max(result, increasingCache[i] + decreasingCache[i] - 1)
+        }
+
+        println(result)
     }
 }

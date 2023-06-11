@@ -54,5 +54,8 @@ object DynamicProgrammingExecutor : DynamicProgrammingProblems by DynamicProgram
         interleaveString()
         wordBreakProblem()
         totalNumberOfPathsInMatrix()
+        numbersWithoutConsecutive1()
+        longestIncreasingSubsequence()
+        longestBitonicSubsequence()
     }
 }
