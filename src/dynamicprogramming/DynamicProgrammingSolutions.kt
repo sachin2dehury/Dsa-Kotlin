@@ -392,29 +392,19 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     // [1, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9]
     // [0, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3]
     override fun minimumJumpsToReachEnd(items: List<Int>) {
-        var maxReached = 0
-        var minSteps = 0
-        val cache = Array(items.size) { it }
+        val cache = Array(items.size) { Int.MAX_VALUE }
+        cache[0] = 0
 
         for (i in 1 until items.size) {
-            cache[i] = max(i + items[i], cache[i - 1])
-            if (maxReached < cache[i]) {
-                maxReached = cache[i]
-                minSteps++
+            for (j in i - 1 downTo 0) {
+                if (items[j] + j >= i) {
+                    cache[i] = min(cache[i], cache[j] + 1)
+                }
             }
-
-            if (maxReached <= i) {
-                println("Can't Reach")
-                return
-            }
-
-            if (maxReached >= items.lastIndex) {
-                break
-            }
-
         }
 
-        println(minSteps)
+        val result = cache[items.lastIndex]
+        println(result)
     }
 
 
