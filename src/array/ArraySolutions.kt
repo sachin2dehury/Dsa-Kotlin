@@ -75,12 +75,10 @@ class ArraySolutions : ArrayProblems {
     }
 
     override fun firstMissingElement(items: ArrayList<Int>) {
-        val sortedList = items.sorted()
+        val set = items.toSet()
         var result = 1
-        sortedList.forEach {
-            if (it == result) {
-                result++
-            }
+        while (set.contains(result)) {
+            result++
         }
 
         println(result)
@@ -201,7 +199,7 @@ class ArraySolutions : ArrayProblems {
         minHeap.addAll(items)
 
         var counter = 0
-        val result = mutableListOf<Pair<Int,Int>>()
+        val result = mutableListOf<Pair<Int, Int>>()
 
         while (minHeap.size > 1 && counter < items.size) {
             counter++

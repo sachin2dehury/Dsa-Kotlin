@@ -505,12 +505,11 @@ class BinarySearchSolutions : BinarySearchProblems {
             var sum = 0
             var count = 1
 
-            for (i in items.indices) {
+            items.forEach {
+                sum += it
                 if (sum > mid) {
-                    sum = items[i]
+                    sum = it
                     count++
-                } else {
-                    sum += items[i]
                 }
             }
 
