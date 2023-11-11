@@ -13,50 +13,46 @@ object DynamicProgrammingExecutor : DynamicProgrammingProblems by DynamicProgram
         root.right?.right?.left = Node(3)
         root.right?.right?.right = Node(4)
 
-        largestSumContiguousSubArray()
-        minimumJumpsToReachEnd()
-
-        diameterOfBinaryTree(root)
-
         countOfSubsetSum()
         countOfSubsetWithDifference()
+        diameterOfBinaryTree(root)
         eggDroppingProblem()
         equalSum()
         knapsack()
+        largestSumContiguousSubArray()
         longestCommonSubSequence()
         longestCommonSubString()
         longestPalindromicSubsequence()
         longestRepeatingSubsequence()
+        matrixChainMultiplication()
         maximumNumberOfWaysToChangeCoins()
-
         maximumPathSumOfBinaryTree(root)
         maximumPathSumOfBinaryTreeLeafToLeafNode(root)
-
+        minimumJumpsToReachEnd()
         minimumNumberOfDeletionForPalindrome()
         minimumDifferenceOfSum()
         minimumInsertionForPalindrome()
         minimumNumberOfCoinsToChange()
         minimumNumberOfInsertAndDeleteToMatch()
-
-        matrixChainMultiplication()
         minimumNumberOfPalindromePartitioning()
         printLongestCommonSubsequence()
         printShortestCommonSuperSequence()
         rodCuttingProblem()
-
         patternMatching()
         shortestCommonSuperSequence()
         unboundedKnapsack()
-
         minimumEditDistance()
         regularExpressionMatch()
         countWaysToReachNthStair()
-        interleaveString()
         wordBreakProblem()
+        boxStackingProblem()
+        interleaveString()
         totalNumberOfPathsInMatrix()
         numbersWithoutConsecutive1()
-        longestIncreasingSubsequence()
         longestBitonicSubsequence()
-        boxStackingProblem()
     }
+}
+
+fun main() {
+    DynamicProgrammingExecutor.invoke()
 }

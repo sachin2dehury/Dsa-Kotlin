@@ -19,7 +19,7 @@ object BinaryTreeExecutor : BinaryTreeProblems by BinaryTreeSolutions() {
         levelOrderTraversal(root)
         println()
         println(binaryTreeSearch(root, 3))
-        println(isSameBinaryTree(null, null))
+        println(isSameBinaryTree(root, root.left))
         println(heightOfBinaryTree(root))
         println(sizeOfBinaryTree(root))
 

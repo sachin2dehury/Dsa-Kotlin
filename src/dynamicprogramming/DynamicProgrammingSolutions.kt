@@ -268,7 +268,7 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
             }
         }
 
-        val result = cache[0][cache.lastIndex - 1]
+        val result = cache[0][items.lastIndex - 1]
 
         println(result)
     }

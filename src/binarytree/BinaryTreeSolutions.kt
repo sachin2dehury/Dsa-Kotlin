@@ -26,21 +26,16 @@ class BinaryTreeSolutions : BinaryTreeProblems {
     }
 
     override fun levelOrderTraversal(node: Node?) {
-        if (node == null) return
-
-        val queue = ArrayDeque<Node>()
+        val queue = ArrayDeque<Node?>()
         queue.add(node)
 
         while (queue.isNotEmpty()) {
             val current = queue.removeFirst()
-            print("${current.data} ")
 
-            current.left?.let {
-                queue.add(it)
-            }
-
-            current.right?.let {
-                queue.add(it)
+            if (current != null) {
+                print("${current.data} ")
+                queue.add(current.left)
+                queue.add(current.right)
             }
         }
     }
@@ -65,7 +60,7 @@ class BinaryTreeSolutions : BinaryTreeProblems {
         } else {
             val left = isSameBinaryTree(node1.left, node2.left)
             val right = isSameBinaryTree(node1.right, node2.right)
-            left && right
+            (node1.data == node2.data) && left && right
         }
     }
 
@@ -102,23 +97,19 @@ class BinaryTreeSolutions : BinaryTreeProblems {
     }
 
     override fun reverseLevelOrderTraversal(node: Node?) {
-        if (node == null) return
-        val queue = ArrayDeque<Node>()
+        val queue = ArrayDeque<Node?>()
         queue.add(node)
 
         val stack = Stack<Int>()
 
         while (queue.isNotEmpty()) {
             val current = queue.removeFirst()
-            stack.push(current.data)
 
-            current.right?.let {
-                queue.add(it)
+            if (current != null) {
+                stack.push(current.data)
+                queue.add(current.left)
+                queue.add(current.right)
             }
-            current.left?.let {
-                queue.add(it)
-            }
-
         }
 
         while (stack.isNotEmpty()) {
