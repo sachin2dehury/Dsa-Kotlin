@@ -1,6 +1,5 @@
 package graph
 
-import java.util.ArrayDeque
 import java.util.PriorityQueue
 import java.util.Stack
 import kotlin.math.min
@@ -81,6 +80,7 @@ class GraphSolutions : GraphProblems {
         return
     }
 
+    // todo sachin
     override fun detectCycleInDirectionalGraph(graph: Graph) {
         val stack = Stack<Int>()
         val visitedSet = mutableSetOf<Int>()
@@ -268,38 +268,26 @@ class GraphSolutions : GraphProblems {
     }
 
     override fun numberOfIslands(graph: List<List<Int>>) {
-        val queue = ArrayDeque<Pair<Int, Int>>()
-        val visitedSet = mutableSetOf<Pair<Int, Int>>()
-        val totalNodes = graph.size
-
-        val allowedPaths = listOf(0 to 1, 1 to 0, 1 to 1, 0 to -1, -1 to 0, -1 to 1, 1 to -1, -1 to -1)
-
+        val stack = Stack<Pair<Int, Int>>()
+        val visited = Array(graph.size) { Array(graph.first().size) { false } }
+        val allowedPaths = listOf(0 to 1, 1 to 0, 0 to -1, -1 to 0, 1 to 1, -1 to -1, 1 to -1, -1 to 1)
         var count = 0
-
-        for (i in 0 until totalNodes) {
-            for (j in 0 until totalNodes) {
-                if (graph[i][j] == 1 && !visitedSet.contains(i to j)) {
-                    queue.add(i to j)
+        for (i in graph.indices) {
+            for (j in graph.first().indices) {
+                if (graph[i][j] == 1 && !visited[i][j]) {
                     count++
-                }
-
-                while (queue.isNotEmpty()) {
-                    val currentPosition = queue.first()
-                    visitedSet.add(currentPosition)
-
-                    allowedPaths.forEach {
-                        val x = currentPosition.first + it.first
-                        val y = currentPosition.second + it.second
-
-                        val isValidPosition = x in 0 until totalNodes && y in 0 until totalNodes
-
-                        if (isValidPosition && graph[x][y] == 1 && !visitedSet.contains(x to y)) {
-                            queue.add(x to y)
-                            visitedSet.add(x to y)
+                    stack.push(i to j)
+                    while (stack.isNotEmpty()) {
+                        val node = stack.pop()
+                        visited[node.first][node.second] = true
+                        for (path in allowedPaths) {
+                            val x = node.first + path.first
+                            val y = node.second + path.second
+                            if (x in graph.indices && y in graph.indices && graph[x][y] == 1 && !visited[x][y]) {
+                                stack.push(x to y)
+                            }
                         }
                     }
-
-                    queue.removeFirst()
                 }
             }
         }
@@ -308,25 +296,21 @@ class GraphSolutions : GraphProblems {
     }
 
     override fun minimumCostPath(graph: List<List<Int>>) {
-        val cache = Array(graph.size + 1) { Array(graph.size + 1) { Int.MAX_VALUE } }
-
-        cache[0][0] = graph[0][0]
-
-        for (i in 0 until graph.size) {
-            for (j in 0 until graph.first().size) {
+        val cache = Array(graph.size) { Array(graph.first().size) { Int.MAX_VALUE } }
+        for (i in graph.indices) {
+            for (j in graph.first().indices) {
                 if (i == 0 && j == 0) {
                     cache[i][j] = graph[i][j]
                 } else if (i == 0) {
-                    cache[i][j] = graph[i][j] + cache[i][j - 1]
+                    cache[i][j] = cache[i][j - 1] + graph[i][j]
                 } else if (j == 0) {
                     cache[i][j] = graph[i][j] + cache[i - 1][j]
                 } else {
-                    cache[i][j] = graph[i][j] + min(min(cache[i][j - 1], cache[i - 1][j]), cache[i - 1][j - 1])
+                    cache[i][j] = graph[i][j] + min(min(cache[i - 1][j], cache[i][j - 1]), cache[i - 1][j - 1])
                 }
             }
         }
 
-        val result = cache[graph.lastIndex][graph.first().lastIndex]
-        println(result)
+        println(cache[graph.lastIndex][graph.first().lastIndex])
     }
 }
