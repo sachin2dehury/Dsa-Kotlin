@@ -22,6 +22,10 @@ object GraphExecutor : GraphProblems by GraphSolutions() {
                 Graph.Edge(0, 2),
                 Graph.Edge(1, 2),
                 Graph.Edge(2, 3),
+                Graph.Edge(1, 0),
+                Graph.Edge(2, 0),
+                Graph.Edge(2, 1),
+                Graph.Edge(3, 2),
             )
         )
 
@@ -50,11 +54,13 @@ object GraphExecutor : GraphProblems by GraphSolutions() {
 
         dijkstraAlgo(weightedGraph)
 
+        primsMinimumSpanningTree(weightedGraph)
+
         kruskalsMinimumSpanningTree(weightedGraph)
 
-        floydWarshallAlgo(weightedGraph)
-
         bellmanFordAlgo(weightedGraph)
+
+        floydWarshallAlgo(weightedGraph)
 
         val graph = Graph(
             totalNodes = 6,

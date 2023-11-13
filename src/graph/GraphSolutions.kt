@@ -7,230 +7,204 @@ import kotlin.math.min
 
 class GraphSolutions : GraphProblems {
     override fun breadthFirstSearch(graph: Graph) {
-        val queue = ArrayDeque<Int>()
+        val queue = kotlin.collections.ArrayDeque<Int>()
         val visitedSet = mutableSetOf<Int>()
-        val result = mutableListOf<Int>()
-
+        val path = mutableSetOf<Int>()
         for (i in 0 until graph.totalNodes) {
             if (!visitedSet.contains(i)) {
                 queue.add(i)
-                visitedSet.add(i)
-
                 while (queue.isNotEmpty()) {
-                    val currentIndex = queue.first()
-
+                    val node = queue.removeFirst()
+                    visitedSet.add(node)
+                    path.add(node)
                     for (edge in graph.edges) {
-                        if (edge.start == currentIndex && !visitedSet.contains(edge.destination)) {
-                            visitedSet.add(edge.destination)
+                        if (edge.start == node && !visitedSet.contains(edge.destination)) {
                             queue.add(edge.destination)
                         }
                     }
-
-                    queue.removeFirst()
-                    result.add(currentIndex)
                 }
             }
         }
 
-        println(result)
+        println(path)
     }
 
     override fun depthFirstSearch(graph: Graph) {
         val stack = Stack<Int>()
         val visitedSet = mutableSetOf<Int>()
-
-        val result = mutableListOf<Int>()
-
+        val path = mutableListOf<Int>()
         for (i in 0 until graph.totalNodes) {
             if (!visitedSet.contains(i)) {
                 stack.push(i)
-
                 while (stack.isNotEmpty()) {
-                    val currentIndex = stack.peek()
-                    visitedSet.add(currentIndex)
-
-                    var allAdjacentVisited = true
+                    val node = stack.pop()
+                    visitedSet.add(node)
+                    path.add(node)
                     for (edge in graph.edges) {
-                        if (edge.start == currentIndex && !visitedSet.contains(edge.destination)) {
+                        if (edge.start == node && !visitedSet.contains(edge.destination)) {
                             stack.push(edge.destination)
-                            allAdjacentVisited = false
                         }
-                    }
-
-                    if (allAdjacentVisited) {
-                        stack.pop()
-                        result.add(currentIndex)
                     }
                 }
             }
         }
 
-        println(result)
+        println(path)
     }
 
     override fun detectCycleInUndirectionalGraph(graph: Graph) {
         val stack = Stack<Int>()
         val visitedSet = mutableSetOf<Int>()
-
-        var result = false
-
-        stack.push(0)
-
-        while (stack.isNotEmpty() && !result) {
-            val currentIndex = stack.peek()
-            visitedSet.add(currentIndex)
-
-            var allAdjacentVisited = true
-            for (edge in graph.edges) {
-                if (edge.start == currentIndex) {
-
-                    if (!visitedSet.contains(edge.destination)) {
-                        allAdjacentVisited = false
-                        stack.push(edge.destination)
-                    } else {
-                        result = true
-                        break
-                    }
-                }
-            }
-
-            if (allAdjacentVisited) {
-                stack.pop()
-            }
-        }
-
-        println(result)
-    }
-
-    //                Graph.Edge(0, 1),
-    //                Graph.Edge(0, 2),
-    //                Graph.Edge(1, 2),
-    //                Graph.Edge(2, 0),
-    //                Graph.Edge(2, 3),
-    //                Graph.Edge(3, 3)
-    override fun detectCycleInDirectionalGraph(graph: Graph) {
-        val queue = ArrayDeque<Int>()
-        val visited = Array(graph.totalNodes) { false to false }
-        var result = false
+        val parent = Array(graph.totalNodes) { -1 }
 
         for (i in 0 until graph.totalNodes) {
-            if (!visited[i].first) {
-                queue.add(i)
-                visited[i] = true to visited[i].second
-            }
-
-            while (queue.isNotEmpty() && !result) {
-                val current = queue.removeFirst()
-                for (edge in graph.edges) {
-                    if (edge.start == current) {
-                        if (edge.start < edge.destination) {
-                            if (!visited[edge.destination].first) {
-                                queue.add(edge.destination)
-                                visited[edge.destination] = visited[edge.destination].copy(first = true)
-                            }
-                        } else {
-                            if (!visited[edge.destination].second) {
-                                queue.add(edge.destination)
-                                visited[edge.destination] = visited[edge.destination].copy(second = true)
-                            }
-                        }
-
-                        if (visited[edge.destination].first && visited[edge.destination].second) {
-                            result = true
-                            break
+            if (!visitedSet.contains(i)) {
+                stack.push(i)
+                while (stack.isNotEmpty()) {
+                    val node = stack.pop()
+                    visitedSet.add(node)
+                    for (edge in graph.edges) {
+                        if (edge.start == node && !visitedSet.contains(edge.destination)) {
+                            stack.push(edge.destination)
+                            parent[edge.destination] = node
+                        } else if (edge.start == node && parent[node] == edge.destination) {
+                            //
+                        } else if (edge.start == node && visitedSet.contains(edge.destination)) {
+                            println(true)
+                            return
                         }
                     }
                 }
             }
         }
+        println(false)
+        return
+    }
 
-        println(result)
+    override fun detectCycleInDirectionalGraph(graph: Graph) {
+        val stack = Stack<Int>()
+        val visitedSet = mutableSetOf<Int>()
+
+        val currentStackSet = mutableSetOf<Int>()
+
+        for (i in 0 until graph.totalNodes) {
+            if (!visitedSet.contains(i)) {
+                stack.push(i)
+                currentStackSet.clear()
+                while (stack.isNotEmpty()) {
+                    val node = stack.pop()
+                    visitedSet.add(node)
+                    currentStackSet.add(node)
+                    for (edge in graph.edges) {
+                        if (edge.start == node && !visitedSet.contains(edge.destination)) {
+                            stack.push(edge.destination)
+                        } else if (edge.start == node && currentStackSet.contains(edge.destination)) {
+                            println(edge)
+                            println(true)
+                            return
+                        }
+                    }
+                }
+            }
+        }
+        println(false)
     }
 
     override fun dijkstraAlgo(graph: Graph, startIndex: Int) {
-        val minHeap = PriorityQueue<Pair<Int, Int>> { a, b -> a.second - b.second }
-        val visitedSet = mutableSetOf<Int>()
-        val cost = Array(graph.totalNodes) { Int.MAX_VALUE }
-
-        cost[startIndex] = 0
-        minHeap.add(startIndex to cost[startIndex])
-
-        while (minHeap.isNotEmpty() && visitedSet.size < graph.totalNodes) {
-            val current = minHeap.poll()
-            val currentIndex = current.first
-            val currentCost = current.second
-
-            visitedSet.add(currentIndex)
-
+        val distance = Array(graph.totalNodes) { Int.MAX_VALUE }
+        val minimisedSet = mutableSetOf<Int>()
+        distance[startIndex] = 0
+        val priorityQueue = PriorityQueue<Pair<Int, Int>> { a, b -> a.second - b.second }
+        priorityQueue.add(startIndex to 0)
+        while (priorityQueue.isNotEmpty()) {
+            val node = priorityQueue.poll()
+            minimisedSet.add(node.first)
             for (edge in graph.edges) {
-                if (edge.start == currentIndex && !visitedSet.contains(edge.destination)) {
-                    if (cost[edge.destination] > currentCost + edge.cost) {
-                        cost[edge.destination] = currentCost + edge.cost
-                        minHeap.add(edge.destination to cost[edge.destination])
+                if (node.first == edge.start && !minimisedSet.contains(edge.destination)) {
+                    if (node.second + edge.cost < distance[edge.destination]) {
+                        distance[edge.destination] = node.second + edge.cost
+                        priorityQueue.add(edge.destination to distance[edge.destination])
                     }
                 }
             }
         }
 
-        println(cost.toList())
+        println(distance.toList())
     }
 
     override fun primsMinimumSpanningTree(graph: Graph) {
-        TODO("Not yet implemented")
-    }
-
-    override fun kruskalsMinimumSpanningTree(graph: Graph) {
-        val minHeap = PriorityQueue<Graph.Edge> { a, b -> a.cost - b.cost }
-        val parent = Array(graph.totalNodes) { it }
-
+        val stack = Stack<Int>()
+        val minimisedSet = mutableSetOf<Int>()
         val result = mutableListOf<Graph.Edge>()
+        stack.push(0)
+        val priorityQueue = PriorityQueue<Graph.Edge> { a, b -> a.cost - b.cost }
 
-        minHeap.addAll(graph.edges)
-
-        while (minHeap.isNotEmpty() && result.size < graph.totalNodes) {
-            val currentEdge = minHeap.poll()
-            val start = currentEdge.start
-            val destination = currentEdge.destination
-            if (getParentNode(parent, start) != getParentNode(parent, destination)) {
-                assignParent(parent, start, destination)
-                result.add(currentEdge)
+        while (stack.isNotEmpty() && minimisedSet.size != graph.totalNodes) {
+            val node = stack.pop()
+            minimisedSet.add(node)
+            for (edge in graph.edges) {
+                if (edge.start == node && !minimisedSet.contains(edge.destination)) {
+                    priorityQueue.add(edge)
+                }
+            }
+            val edge = priorityQueue.poll()
+            if (!minimisedSet.contains(edge.destination)) {
+                result.add(edge)
+                stack.push(edge.destination)
             }
         }
 
-        println(result.sumOf { it.cost })
         println(result)
+        println(result.sumOf { it.cost })
     }
 
-    private fun getParentNode(parent: Array<Int>, node: Int): Int {
-        return if (parent[node] == node) {
-            node
-        } else {
-            getParentNode(parent, parent[node])
+    override fun kruskalsMinimumSpanningTree(graph: Graph) {
+        val priorityQueue = PriorityQueue<Graph.Edge> { a, b -> a.cost - b.cost }
+        val parent = Array(graph.totalNodes) { it }
+        val path = mutableSetOf<Graph.Edge>()
+        priorityQueue.addAll(graph.edges)
+        while (priorityQueue.isNotEmpty() && path.size < graph.totalNodes) {
+            val edge = priorityQueue.poll()
+            val startParent = getParent(parent, edge.start)
+            val endParent = getParent(parent, edge.destination)
+            if (startParent != endParent) {
+                if (startParent == edge.start) {
+                    parent[edge.start] = endParent
+                } else if (endParent == edge.destination) {
+                    parent[edge.destination] = startParent
+                } else {
+                    assignParent(parent, edge.start, edge.destination)
+                }
+                path.add(edge)
+            }
         }
+
+        println(path)
+        println(path.sumOf { it.cost })
     }
 
     private fun assignParent(parent: Array<Int>, start: Int, destination: Int) {
-        if (parent[destination] == destination) {
-            parent[destination] = start
-        } else {
-            assignParent(parent, start, parent[destination])
-            parent[destination] = start
-        }
+        if (parent[start] == destination) return
+        assignParent(parent, parent[start], destination)
+        parent[start] = destination
+    }
+
+    private fun getParent(parent: Array<Int>, node: Int): Int {
+        return if (parent[node] == node) node
+        else getParent(parent, parent[node])
     }
 
     override fun bellmanFordAlgo(graph: Graph, startIndex: Int) {
         val cost = Array(graph.totalNodes) { Int.MAX_VALUE }
         cost[startIndex] = 0
-
         for (i in 0..graph.totalNodes) {
             for (edge in graph.edges) {
-
-                if (cost[edge.start] < Int.MAX_VALUE && cost[edge.destination] > cost[edge.start] + edge.cost) {
-                    if (i == graph.totalNodes) {
-                        println("Negative Cycle is Present")
-                        break
-                    }
+                if (cost[edge.start] < Int.MAX_VALUE && (cost[edge.start] + edge.cost < cost[edge.destination])) {
                     cost[edge.destination] = cost[edge.start] + edge.cost
+                    if (i == graph.totalNodes) {
+                        println("Negative Cycle")
+                        return
+                    }
                 }
             }
         }
@@ -239,27 +213,23 @@ class GraphSolutions : GraphProblems {
     }
 
     override fun floydWarshallAlgo(graph: Graph) {
-        val result = Array(graph.totalNodes) {
-            Array(graph.totalNodes) { Int.MAX_VALUE }
+        val cost = Array(graph.totalNodes) { Array(graph.totalNodes) { Int.MAX_VALUE } }
+        for (i in 0 until graph.totalNodes) {
+            cost[i][i] = 0
         }
-
         for (edge in graph.edges) {
-            result[edge.start][edge.destination] = min(result[edge.start][edge.destination], edge.cost)
+            cost[edge.start][edge.destination] = edge.cost
         }
-
         for (k in 0 until graph.totalNodes) {
             for (i in 0 until graph.totalNodes) {
                 for (j in 0 until graph.totalNodes) {
-                    if (i == j) {
-                        result[i][j] = 0
-                    } else if (result[i][k] < Int.MAX_VALUE && result[k][j] < Int.MAX_VALUE) {
-                        result[i][j] = min(result[i][j], result[i][k] + result[k][j])
+                    if (cost[i][k] < Int.MAX_VALUE && cost[k][j] < Int.MAX_VALUE && (cost[i][j] > cost[i][k] + cost[k][j])) {
+                        cost[i][j] = cost[i][k] + cost[k][j]
                     }
                 }
             }
         }
-
-        for (list in result) {
+        for (list in cost) {
             println(list.toList())
         }
     }
