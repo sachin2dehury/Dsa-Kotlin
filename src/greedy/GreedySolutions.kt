@@ -5,29 +5,23 @@ import java.util.PriorityQueue
 class GreedySolutions : GreedyProblems {
 
     override fun jobSchedulingProblem(items: List<Job>, time: Int) {
-        val maxHeap = PriorityQueue<Job> { a, b -> b.profit - a.profit }
+        val priorityQueue = PriorityQueue<Job> { a, b -> b.profit - a.profit }
+        val timeSlot = Array<Job?>(time) { null }
 
-        maxHeap.addAll(items)
+        priorityQueue.addAll(items)
 
-        val timeSet = mutableSetOf<Int>()
-        val result = Array(time) { -1 }
-        var profit = 0
-
-        while (maxHeap.isNotEmpty()) {
-            val currentJob = maxHeap.poll()
-
-            var currentDeadline = currentJob.deadline
-            while (timeSet.contains(currentDeadline)) {
-                currentDeadline--
+        while (priorityQueue.isNotEmpty()) {
+            val job = priorityQueue.poll()
+            var deadline = job.deadline
+            while (deadline > 0 && timeSlot[deadline - 1] != null) {
+                deadline--
             }
-            if (currentDeadline > 0) {
-                timeSet.add(currentDeadline)
-                profit += currentJob.profit
-                result[currentDeadline - 1] = currentJob.id
+            if (deadline > 0 && timeSlot[deadline - 1] == null) {
+                timeSlot[deadline - 1] = job
             }
         }
 
-        println(profit)
-        println(result.toList())
+        println(timeSlot.toList())
+        println(timeSlot.sumOf { it?.profit ?: 0 })
     }
 }

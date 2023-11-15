@@ -168,9 +168,7 @@ class GraphSolutions : GraphProblems {
             val startParent = getParent(parent, edge.start)
             val endParent = getParent(parent, edge.destination)
             if (startParent != endParent) {
-                if (startParent == edge.start) {
-                    parent[edge.start] = endParent
-                } else if (endParent == edge.destination) {
+                if (endParent == edge.destination) {
                     parent[edge.destination] = startParent
                 } else {
                     assignParent(parent, edge.start, edge.destination)
@@ -184,9 +182,9 @@ class GraphSolutions : GraphProblems {
     }
 
     private fun assignParent(parent: Array<Int>, start: Int, destination: Int) {
-        if (parent[start] == destination) return
-        assignParent(parent, parent[start], destination)
-        parent[start] = destination
+        if (parent[destination] == start) return
+        assignParent(parent, start, parent[destination])
+        parent[destination] = start
     }
 
     private fun getParent(parent: Array<Int>, node: Int): Int {

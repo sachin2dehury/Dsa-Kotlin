@@ -29,5 +29,7 @@ object DoublyLinkedListExecutor : LinkedListProblems by DoublyLinkedListSolution
         head = insertAt(head, 9, 3)
 
         middleElement(head)
+
+        nthFromEnd(head, 3)
     }
 }

@@ -76,34 +76,38 @@ class DoublyLinkedListSolutions : LinkedListProblems {
         println(current?.data)
     }
 
-    override fun nthFromEnd(node: Node?) {
-        TODO("Not yet implemented")
+    override fun nthFromEnd(node: Node?, position: Int) {
+        var head = node
+        var count = 0
+        while (head != null) {
+            count++
+            head = head.next
+        }
+        val newPosition = (count - position)
+        head = node
+        for (i in 0 until newPosition) {
+            head = head?.next
+        }
+        println(head?.data)
     }
 
     override fun insertAt(node: Node?, data: Int, position: Int): Node? {
         var head = node
-
-        var current = node
-        var count = 0
-
-        while (current != null) {
-            count++
-            if (count == position - 1) {
-                val next = current.next
-
-                val newNode = Node(data, prev = current, next = next)
-                current.next = newNode
-                next?.prev = newNode
-
-                if (position == 1) {
-                    head = newNode
-                }
-            }
-            current = current.next
+        val newNode = Node(data)
+        if (position == 1) {
+            newNode.next = node
+            node?.prev = newNode
+            return newNode
         }
-
-        printLinkedList(head)
-        return head
+        var count = 0
+        while (head != null && count < position) {
+            count++
+            head = head.next
+        }
+        newNode.prev = head?.prev
+        newNode.next = head
+        head?.prev = newNode
+        return node
     }
 
     override fun printLinkedList(node: Node?) {

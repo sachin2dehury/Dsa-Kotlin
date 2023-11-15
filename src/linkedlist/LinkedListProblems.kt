@@ -10,7 +10,7 @@ interface LinkedListProblems {
 
     fun middleElement(node: Node?)
 
-    fun nthFromEnd(node: Node?)
+    fun nthFromEnd(node: Node?, position: Int)
 
     fun insertAt(node: Node?, data: Int, position: Int): Node?
 

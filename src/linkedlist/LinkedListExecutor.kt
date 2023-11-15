@@ -24,5 +24,9 @@ object LinkedListExecutor : LinkedListProblems by LinkedListSolutions() {
 
         head = insertAt(head, 9, 3)
         head = reverseLinkedList(head)
+
+        printLinkedList(head)
+
+        nthFromEnd(head,3)
     }
 }

@@ -69,8 +69,19 @@ class LinkedListSolutions : LinkedListProblems {
         println(currentNode?.data)
     }
 
-    override fun nthFromEnd(node: Node?) {
-        TODO("Not yet implemented")
+    override fun nthFromEnd(node: Node?, position: Int) {
+        var head = node
+        var count = 0
+        while (head != null) {
+            count++
+            head = head.next
+        }
+        val newPosition = (count - position)
+        head = node
+        for (i in 0 until newPosition) {
+            head = head?.next
+        }
+        println(head?.data)
     }
 
     override fun insertAt(node: Node?, data: Int, position: Int): Node? {
@@ -78,19 +89,19 @@ class LinkedListSolutions : LinkedListProblems {
         val newNode = Node(data)
         var count = 0
 
-        if (position == 0) {
+        if (position == 1) {
             newNode.next = head
             head = newNode
         } else {
             var currentNode = node
-            while (currentNode != null) {
+            var prev: Node? = null
+            while (currentNode != null && count < position) {
                 count++
-                if (count == position - 1) {
-                    newNode.next = currentNode.next
-                    currentNode.next = newNode
-                }
+                prev = currentNode
                 currentNode = currentNode.next
             }
+            newNode.next = currentNode
+            prev?.next = newNode
         }
 
         printLinkedList(head)
