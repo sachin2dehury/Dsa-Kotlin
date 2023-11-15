@@ -30,7 +30,7 @@ object RecursionExecutor : RecursionProblems by RecursionSolutions() {
 
         println(kthElementInGrammar())
 
-        println(nBitBinaryNumber())
+        nBitBinaryNumber()
 
         permutationWithCaseChange()
 
@@ -43,17 +43,13 @@ object RecursionExecutor : RecursionProblems by RecursionSolutions() {
         printUniqueSubSequences(result = set)
         println(set)
 
-        sortStack(stack)
+        reverseStack(stack)
         println(stack)
 
-        reverseStack(stack)
+        sortStack(stack)
         println(stack)
 
         sortList(list)
         println(list)
-
-        sortStack(stack)
-        println(stack)
-
     }
 }

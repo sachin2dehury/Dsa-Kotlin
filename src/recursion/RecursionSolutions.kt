@@ -41,12 +41,12 @@ class RecursionSolutions : RecursionProblems {
 //        return josephusProblem(n - 1, k - 1) % n + 1
     }
 
-    override fun kthElementInGrammar(n: Int, k: Int): Int {
-        if (n == 1 && k == 1) return 0
-        if (2f.pow(n - 1) < k) return -1
-        if (2f.pow(n - 2) < k) return kthElementInGrammar(n - 1, k)
+    override fun kthElementInGrammar(row: Int, k: Int): Int {
+        if (row == 1 && k == 1) return 0
+        if (2f.pow(row - 1) < k) return -1
+        if (2f.pow(row - 2) < k) return kthElementInGrammar(row - 1, k)
 
-        val item = kthElementInGrammar(n - 1, k)
+        val item = kthElementInGrammar(row - 1, k)
         return if (item == 0) 1 else 0
     }
 

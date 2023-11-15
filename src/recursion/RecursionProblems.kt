@@ -10,7 +10,7 @@ interface RecursionProblems {
 
     fun josephusProblem(n: Int = 7, k: Int = 3): Int
 
-    fun kthElementInGrammar(n: Int = 3, k: Int = 2): Int
+    fun kthElementInGrammar(row: Int = 3, k: Int = 2): Int
 
     fun nBitBinaryNumber(length: Int = 4, unusedOne: Int = 0, result: String = "")
 
