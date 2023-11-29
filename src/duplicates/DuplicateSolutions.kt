@@ -24,4 +24,29 @@ class DuplicateSolutions : DuplicatesProblems {
 
         println(result)
     }
+
+    override fun findAllMissingAndDuplicates(items: List<Int>) {
+        val list = items.toMutableList()
+        var i = 0
+        val duplicate = mutableListOf<Int>()
+        val missing = mutableListOf<Int>()
+        while (i < list.size) {
+            if (list[i] != list[list[i] - 1]) {
+                val temp = list[i]
+                list[i] = list[temp - 1]
+                list[temp - 1] = temp
+            } else {
+                i++
+            }
+        }
+        list.forEachIndexed { index, it ->
+            if (it != index + 1) {
+                duplicate.add(it)
+                missing.add(index + 1)
+            }
+        }
+
+        println(duplicate)
+        println(missing)
+    }
 }

@@ -7,5 +7,7 @@ object DuplicateExecutor : DuplicatesProblems by DuplicateSolutions() {
 
         print("findDuplicateAndMissingElement : ")
         findDuplicateAndMissingElement()
+        print("findAllMissingAndDuplicates : ")
+        findAllMissingAndDuplicates()
     }
 }

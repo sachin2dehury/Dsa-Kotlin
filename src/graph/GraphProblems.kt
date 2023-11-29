@@ -6,9 +6,9 @@ interface GraphProblems {
 
     fun depthFirstSearch(graph: Graph)
 
-    fun detectCycleInUndirectionalGraph(graph: Graph)
+    fun detectCycleInUndirectedGraph(graph: Graph)
 
-    fun detectCycleInDirectionalGraph(graph: Graph)
+    fun detectCycleInDirectedGraph(graph: Graph)
 
     fun dijkstraAlgo(graph: Graph, startIndex: Int = 0)
 

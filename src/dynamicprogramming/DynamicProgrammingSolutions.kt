@@ -76,10 +76,10 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
 
         for (i in 0..floorCount) {
             for (j in 0..eggCount) {
-                if (j == 0) {
-                    cache[i][j] = 0
-                } else if (i <= 1 || j == 1) {
-                    cache[i][j] = 1
+                if (j <= 1) {
+                    cache[i][j] = j
+                } else if (i <= 1) {
+                    cache[i][j] = i
                 } else {
                     for (k in 1..i) {
                         val drops = max(cache[k - 1][j - 1], cache[i - k][j]) + 1
@@ -392,19 +392,20 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     // [1, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9]
     // [0, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3]
     override fun minimumJumpsToReachEnd(items: List<Int>) {
-        val cache = Array(items.size) { Int.MAX_VALUE }
-        cache[0] = 0
+        var maxReach = items.first()
+        var steps = if (maxReach > 0) 1 else 0
 
         for (i in 1 until items.size) {
-            for (j in i - 1 downTo 0) {
-                if (items[j] + j >= i) {
-                    cache[i] = min(cache[i], cache[j] + 1)
+            if (i <= maxReach && maxReach < i + items[i]) {
+                maxReach = i + items[i]
+                steps++
+                if (maxReach >= items.lastIndex) {
+                    break
                 }
             }
         }
-
-        val result = cache[items.lastIndex]
-        println(result)
+        println("Preeti")
+        println(steps)
     }
 
 
@@ -480,7 +481,7 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
         for (l in 0..string.lastIndex) {
             for (i in 0..string.lastIndex - l) {
                 val j = i + l
-                if (l == 0 || string.isPalindrome(i, j)) {
+                if (l <= 1 || string.isPalindrome(i, j)) {
                     cache[i][j] = 0
                 } else {
                     for (k in i until j) {

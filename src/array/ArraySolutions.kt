@@ -11,25 +11,17 @@ class ArraySolutions : ArrayProblems {
         var result = 0
 
         items.forEach {
+            if ((map[sum - it] ?: 0) > 0) {
+                result += map[sum - it]!!
+            }
             map[it] = (map[it] ?: 0) + 1
         }
-
-        items.forEach {
-            val diff = sum - it
-            map[it] = map[it]!! - 1
-            if ((map[diff] ?: 0) > 0) {
-                result += map[diff]!!
-            }
-            map[it] = map[it]!! + 1
-        }
-        result /= 2
 
         println(result)
     }
 
     override fun tripletSum(items: ArrayList<Int>, sum: Int) {
         val map = mutableMapOf<Int, Int>()
-
         var result = 0
 
         items.forEach {

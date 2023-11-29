@@ -51,5 +51,7 @@ object RecursionExecutor : RecursionProblems by RecursionSolutions() {
 
         sortList(list)
         println(list)
+
+        towerOfHanoi(3)
     }
 }

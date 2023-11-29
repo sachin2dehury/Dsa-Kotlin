@@ -39,7 +39,8 @@ interface DynamicProgrammingProblems {
 
     fun minimumInsertionForPalindrome(string: String = "aebcbda")
 
-    fun minimumJumpsToReachEnd(items: List<Int> = listOf(4, 2, 0, 3, 2, 0, 1, 8))
+    // todo sachin
+    fun minimumJumpsToReachEnd(items: List<Int> = listOf(1, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9))
 
     fun minimumNumberOfCoinsToChange(items: List<Int> = listOf(1, 3, 5, 7), sum: Int = 9)
 

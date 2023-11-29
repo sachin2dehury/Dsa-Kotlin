@@ -48,9 +48,9 @@ object GraphExecutor : GraphProblems by GraphSolutions() {
 
         depthFirstSearch(directedGraph)
 
-        detectCycleInUndirectionalGraph(undirectedGraph)
+        detectCycleInUndirectedGraph(undirectedGraph)
 
-        detectCycleInDirectionalGraph(directedGraph)
+        detectCycleInDirectedGraph(directedGraph)
 
         dijkstraAlgo(weightedGraph)
 

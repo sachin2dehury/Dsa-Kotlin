@@ -51,7 +51,7 @@ class GraphSolutions : GraphProblems {
         println(path)
     }
 
-    override fun detectCycleInUndirectionalGraph(graph: Graph) {
+    override fun detectCycleInUndirectedGraph(graph: Graph) {
         val stack = Stack<Int>()
         val visitedSet = mutableSetOf<Int>()
         val parent = Array(graph.totalNodes) { -1 }
@@ -80,34 +80,8 @@ class GraphSolutions : GraphProblems {
         return
     }
 
-    // todo sachin
-    override fun detectCycleInDirectionalGraph(graph: Graph) {
-        val stack = Stack<Int>()
-        val visitedSet = mutableSetOf<Int>()
-
-        val currentStackSet = mutableSetOf<Int>()
-
-        for (i in 0 until graph.totalNodes) {
-            if (!visitedSet.contains(i)) {
-                stack.push(i)
-                currentStackSet.clear()
-                while (stack.isNotEmpty()) {
-                    val node = stack.pop()
-                    visitedSet.add(node)
-                    currentStackSet.add(node)
-                    for (edge in graph.edges) {
-                        if (edge.start == node && !visitedSet.contains(edge.destination)) {
-                            stack.push(edge.destination)
-                        } else if (edge.start == node && currentStackSet.contains(edge.destination)) {
-                            println(edge)
-                            println(true)
-                            return
-                        }
-                    }
-                }
-            }
-        }
-        println(false)
+    override fun detectCycleInDirectedGraph(graph: Graph) {
+        // todo sachin
     }
 
     override fun dijkstraAlgo(graph: Graph, startIndex: Int) {
@@ -235,34 +209,25 @@ class GraphSolutions : GraphProblems {
     override fun topologicalSort(graph: Graph) {
         val stack = Stack<Int>()
         val visitedSet = mutableSetOf<Int>()
-
-        val result = mutableListOf<Int>()
+        val path = mutableListOf<Int>()
 
         for (i in 0 until graph.totalNodes) {
             if (!visitedSet.contains(i)) {
                 stack.push(i)
-
                 while (stack.isNotEmpty()) {
-                    val currentIndex = stack.peek()
-                    visitedSet.add(currentIndex)
-
-                    var allAdjacentVisited = true
+                    val node = stack.pop()
+                    visitedSet.add(node)
+                    path.add(node)
                     for (edge in graph.edges) {
-                        if (edge.start == currentIndex && !visitedSet.contains(edge.destination)) {
+                        if (edge.start == node && !visitedSet.contains(edge.destination)) {
                             stack.push(edge.destination)
-                            allAdjacentVisited = false
                         }
-                    }
-
-                    if (allAdjacentVisited) {
-                        stack.pop()
-                        result.add(currentIndex)
                     }
                 }
             }
         }
 
-        println(result.asReversed())
+        println(path.asReversed())
     }
 
     override fun numberOfIslands(graph: List<List<Int>>) {

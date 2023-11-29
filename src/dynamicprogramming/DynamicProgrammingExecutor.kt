@@ -52,7 +52,3 @@ object DynamicProgrammingExecutor : DynamicProgrammingProblems by DynamicProgram
         longestBitonicSubsequence()
     }
 }
-
-fun main() {
-    DynamicProgrammingExecutor.invoke()
-}

@@ -82,7 +82,7 @@ class SlidingWindowSolutions : SlidingWindowProblems {
             }
 
             sumMap[sum - k]?.let {
-                result = max(result, index - it)
+                result = max(result, (index - it) + 1)
             }
         }
 
