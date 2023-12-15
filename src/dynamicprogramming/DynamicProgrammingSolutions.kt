@@ -533,7 +533,7 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
         var j = string2.length
         var result = ""
         while (i > 0 && j > 0) {
-            if (cache[i][j] > max(cache[i][j - 1], cache[i - 1][j])) {
+            if (string1[i - 1] == string2[j - 1]) {
                 result = string1[i - 1] + result
                 i--
                 j--
@@ -566,7 +566,7 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
         var j = string2.length
         var result = ""
         while (i > 0 && j > 0) {
-            if (cache[i][j] > max(cache[i - 1][j], cache[i][j - 1])) {
+            if (string1[i - 1] == string2[j - 1]) {
                 result = string1[i - 1] + result
                 i--
                 j--
@@ -743,12 +743,10 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
         val cache = Array(items.size) { 1 }
 
         for (i in 1..items.lastIndex) {
-            var j = i - 1
-            while (j >= 0 && items[j] > items[i]) {
-                j--
-            }
-            if (j >= 0) {
-                cache[i] = cache[j] + 1
+            for (j in i - 1 downTo 0) {
+                if (items[j] < items[i]) {
+                    cache[i] = max(cache[j] + 1, cache[i])
+                }
             }
         }
 
@@ -882,7 +880,9 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
 
         for (i in 0 until m) {
             for (j in 0 until n) {
-                if (i == 0 || j == 0) {
+                if (i == 0 && j == 0) {
+                    cache[i][j] = 0
+                } else if (i == 0 || j == 0) {
                     cache[i][j] = 1
                 } else {
                     cache[i][j] = cache[i - 1][j] + cache[i][j - 1]
@@ -915,22 +915,18 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
         val decreasingCache = Array(items.size) { 1 }
 
         for (i in 1..items.lastIndex) {
-            var j = i - 1
-            while (j >= 0 && items[j] > items[i]) {
-                j--
-            }
-            if (j >= 0) {
-                increasingCache[i] = increasingCache[j] + 1
+            for (j in i - 1 downTo 0) {
+                if (items[j] < items[i]) {
+                    increasingCache[i] = max(increasingCache[j] + 1, increasingCache[i])
+                }
             }
         }
 
         for (i in items.lastIndex - 1 downTo 0) {
-            var j = i + 1
-            while (j <= items.lastIndex && items[j] > items[i]) {
-                j++
-            }
-            if (j < items.size) {
-                decreasingCache[i] = decreasingCache[j] + 1
+            for (j in i + 1..items.lastIndex) {
+                if (items[j] < items[i]) {
+                    decreasingCache[i] = max(decreasingCache[j] + 1, decreasingCache[i])
+                }
             }
         }
 
