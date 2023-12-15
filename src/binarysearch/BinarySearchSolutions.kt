@@ -287,7 +287,7 @@ class BinarySearchSolutions : BinarySearchProblems {
             if (items[mid] > items[prevIndex] && items[mid] > items[nextIndex]) {
                 result = items[mid]
                 break
-            } else if (items[mid] > items[prevIndex] && items[mid] < items[nextIndex]) {
+            } else if (items[mid] > items[prevIndex]) {
                 start = nextIndex
             } else {
                 end = prevIndex

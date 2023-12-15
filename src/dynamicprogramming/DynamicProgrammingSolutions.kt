@@ -394,17 +394,21 @@ class DynamicProgrammingSolutions : DynamicProgrammingProblems {
     override fun minimumJumpsToReachEnd(items: List<Int>) {
         var maxReach = items.first()
         var steps = if (maxReach > 0) 1 else 0
+        var remaining = 0
 
         for (i in 1 until items.size) {
             if (i <= maxReach && maxReach < i + items[i]) {
                 maxReach = i + items[i]
-                steps++
+                if (remaining == 0) {
+                    steps++
+                    remaining = items[i]
+                }
+                remaining--
                 if (maxReach >= items.lastIndex) {
                     break
                 }
             }
         }
-        println("Preeti")
         println(steps)
     }
 
