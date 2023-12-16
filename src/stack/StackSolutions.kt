@@ -291,18 +291,8 @@ class StackSolutions : StackProblems {
     override fun balancedParenthesis(expression: String) {
         val stack = Stack<Char>()
         expression.forEach {
-            if (it == '{' || it == '[' || it == '(') {
-                stack.push(it)
-            } else if (stack.isNotEmpty()) {
-                if (it == '}' && stack.peek() == '{') {
-                    stack.pop()
-                } else if (it == ']' && stack.peek() == '[') {
-                    stack.pop()
-                } else if (it == ')' && stack.peek() == '(') {
-                    stack.pop()
-                } else {
-                    stack.push(it)
-                }
+            if (stack.isNotEmpty() && ((it == '}' && stack.peek() == '{') || (it == ']' && stack.peek() == '[') || (it == ')' && stack.peek() == '('))) {
+                stack.pop()
             } else {
                 stack.push(it)
             }

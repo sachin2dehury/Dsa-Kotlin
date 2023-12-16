@@ -42,3 +42,7 @@ object StackExecutor : StackProblems by StackSolutions() {
         binaryMatrixMaximumAreaHistogram()
     }
 }
+
+fun main() {
+    StackSolutions().balancedParenthesis()
+}

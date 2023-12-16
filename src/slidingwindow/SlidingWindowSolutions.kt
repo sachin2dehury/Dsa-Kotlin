@@ -11,14 +11,12 @@ class SlidingWindowSolutions : SlidingWindowProblems {
             patternMap[it] = (patternMap[it] ?: 0) + 1
         }
 
-        val windowSize = string.length
         var result = 0
 
         string.forEachIndexed { index, char ->
 
-            val windowStartIndex = index - windowSize
-            if (windowStartIndex >= 0) {
-                val windowChar = string[windowStartIndex]
+            if (index >= string.length) {
+                val windowChar = string[index - string.length]
                 patternMap[windowChar]?.let {
                     patternMap[char] = it + 1
                 }
@@ -70,19 +68,16 @@ class SlidingWindowSolutions : SlidingWindowProblems {
         val sumMap = mutableMapOf<Int, Int>()
         var sum = 0
         var result = 0
+        sumMap[sum] = -1
         items.forEachIndexed { index, item ->
             sum += item
-
-            if (sum == k) {
-                result = index + 1
-            }
 
             if (sumMap[sum] == null) {
                 sumMap[sum] = index
             }
 
             sumMap[sum - k]?.let {
-                result = max(result, (index - it) + 1)
+                result = max(result, (index - it))
             }
         }
 

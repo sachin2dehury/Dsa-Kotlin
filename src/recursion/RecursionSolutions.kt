@@ -44,9 +44,9 @@ class RecursionSolutions : RecursionProblems {
     override fun kthElementInGrammar(row: Int, k: Int): Int {
         if (row == 1 && k == 1) return 0
         if (2f.pow(row - 1) < k) return -1
-        if (2f.pow(row - 2) < k) return kthElementInGrammar(row - 1, k)
+        if (2f.pow(row - 2) >= k) return kthElementInGrammar(row - 1, k)
 
-        val item = kthElementInGrammar(row - 1, k)
+        val item = kthElementInGrammar(row - 1, k - 2f.pow(row - 2).toInt())
         return if (item == 0) 1 else 0
     }
 
