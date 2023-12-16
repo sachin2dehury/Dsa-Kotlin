@@ -6,7 +6,7 @@ import kotlin.math.min
 
 class GraphSolutions : GraphProblems {
     override fun breadthFirstSearch(graph: Graph) {
-        val queue = kotlin.collections.ArrayDeque<Int>()
+        val queue = ArrayDeque<Int>()
         val visitedSet = mutableSetOf<Int>()
         val path = mutableSetOf<Int>()
         for (i in 0 until graph.totalNodes) {
@@ -81,7 +81,33 @@ class GraphSolutions : GraphProblems {
     }
 
     override fun detectCycleInDirectedGraph(graph: Graph) {
-        // todo sachin
+        val stack = Stack<Int>()
+        val visitedSet = mutableSetOf<Int>()
+        val parent = Array(graph.totalNodes) { it }
+
+        for (i in 0 until graph.totalNodes) {
+            if (!visitedSet.contains(i)) {
+                stack.push(i)
+                while (stack.isNotEmpty()) {
+                    val node = stack.pop()
+                    visitedSet.add(node)
+                    for (edge in graph.edges) {
+                        if (edge.start == node && !visitedSet.contains(edge.destination)) {
+                            stack.push(edge.destination)
+                            parent[edge.destination] = node
+                        } else if (edge.start == node && (node == edge.destination || getParent(
+                                parent,
+                                node
+                            ) == edge.destination)
+                        ) {
+                            println(true)
+                            return
+                        }
+                    }
+                }
+            }
+        }
+        println(false)
     }
 
     override fun dijkstraAlgo(graph: Graph, startIndex: Int) {
@@ -121,8 +147,11 @@ class GraphSolutions : GraphProblems {
                     priorityQueue.add(edge)
                 }
             }
-            val edge = priorityQueue.poll()
-            if (!minimisedSet.contains(edge.destination)) {
+            while (priorityQueue.isNotEmpty() && minimisedSet.contains(priorityQueue.peek().destination)) {
+                priorityQueue.poll()
+            }
+            if (priorityQueue.isNotEmpty()) {
+                val edge = priorityQueue.poll()
                 result.add(edge)
                 stack.push(edge.destination)
             }

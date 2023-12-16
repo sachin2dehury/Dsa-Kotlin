@@ -81,3 +81,7 @@ object GraphExecutor : GraphProblems by GraphSolutions() {
         minimumCostPath()
     }
 }
+
+fun main() {
+    GraphExecutor.invoke()
+}
